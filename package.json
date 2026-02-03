@@ -1,0 +1,19 @@
+{
+  "name": "businessgps-netlify",
+  "version": "1.0.0",
+  "description": "BusinessGPS.ai - Transformation Capability Management Platform",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

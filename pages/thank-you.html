@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You! | BusinessGPS.ai</title>
+    <meta name="robots" content="noindex">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+
+    <!-- Google Analytics 4 - Purchase Event -->
+    <!-- GA4_TRACKING_ID will be replaced with actual ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA4_TRACKING_ID');
+    </script>
+
+    <style>
+        .thank-you-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 60px;
+            background: var(--warm-white);
+        }
+
+        .thank-you-card {
+            background: white;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-xl);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .loading-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--soft-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .loading-icon .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--soft-gray);
+            border-top-color: var(--teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .thank-you-card h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: var(--navy);
+        }
+
+        .thank-you-card .subtitle {
+            font-size: 1.125rem;
+            color: var(--cool-gray);
+            margin-bottom: 32px;
+        }
+
+        .order-details {
+            background: var(--warm-white);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .order-details h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--navy);
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            padding-top: 16px;
+            margin-top: 8px;
+            border-top: 2px solid var(--soft-gray);
+        }
+
+        .order-row .label {
+            color: var(--cool-gray);
+        }
+
+        .next-steps {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .next-steps h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--navy);
+        }
+
+        .next-steps ol {
+            padding-left: 24px;
+            color: var(--cool-gray);
+        }
+
+        .next-steps li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .email-note {
+            background: rgba(49, 151, 149, 0.1);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--navy);
+            margin-bottom: 32px;
+        }
+
+        .email-note strong {
+            color: var(--teal);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-state {
+            display: none;
+        }
+
+        .error-state .error-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(229, 62, 62, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .error-state .error-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #E53E3E;
+        }
+
+        @media (max-width: 500px) {
+            .thank-you-card {
+                padding: 32px 24px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+            <ul class="navbar-nav">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="../index.html#framework">Framework</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Thank You Section -->
+    <section class="thank-you-page">
+        <div class="container">
+            <!-- Loading State -->
+            <div class="thank-you-card" id="loading-state">
+                <div class="loading-icon">
+                    <div class="spinner"></div>
+                </div>
+                <h1>Processing Your Order...</h1>
+                <p class="subtitle">Please wait while we confirm your purchase.</p>
+            </div>
+
+            <!-- Success State -->
+            <div class="thank-you-card" id="success-state" style="display: none;">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+
+                <h1>Thank You for Your Order!</h1>
+                <p class="subtitle">Your purchase was successful. Welcome to BusinessGPS.</p>
+
+                <div class="order-details">
+                    <h3>Order Confirmation</h3>
+                    <div class="order-row">
+                        <span class="label">Product</span>
+                        <span id="product-name">-</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="label">Order Number</span>
+                        <span id="order-number">-</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="label">Email</span>
+                        <span id="customer-email">-</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="label">Total Paid</span>
+                        <span id="order-total">-</span>
+                    </div>
+                </div>
+
+                <div class="email-note">
+                    <strong>Check your inbox!</strong> We've sent a confirmation email with your receipt and access details to <span id="email-display">your email</span>.
+                </div>
+
+                <div class="next-steps">
+                    <h3>What Happens Next</h3>
+                    <ol id="next-steps-list">
+                        <li>Check your email for login credentials and access instructions</li>
+                        <li>Access your dashboard to begin your journey</li>
+                        <li>Book your onboarding call (if included with your plan)</li>
+                    </ol>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="../index.html" class="btn btn-primary">Return to Homepage</a>
+                    <a href="#" class="btn btn-ghost" id="access-btn">Access Your Dashboard</a>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div class="thank-you-card error-state" id="error-state">
+                <div class="error-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                </div>
+
+                <h1>Something Went Wrong</h1>
+                <p class="subtitle" id="error-message">We couldn't verify your order. Please contact support if you believe this is an error.</p>
+
+                <div class="cta-buttons">
+                    <a href="../index.html" class="btn btn-primary">Return to Homepage</a>
+                    <a href="mailto:support@businessgps.ai" class="btn btn-ghost">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (simplified) -->
+    <footer style="background: var(--navy); padding: 24px 0; text-align: center;">
+        <p style="color: rgba(255,255,255,0.5); font-size: 0.875rem;">
+            &copy; 2026 BusinessGPS.ai. All rights reserved. |
+            <a href="#" style="color: rgba(255,255,255,0.5);">Privacy Policy</a> |
+            <a href="#" style="color: rgba(255,255,255,0.5);">Terms of Service</a>
+        </p>
+    </footer>
+
+    <script>
+        // Product-specific next steps
+        const productSteps = {
+            'athena-standard': [
+                'Check your email for your Athena V3 access link',
+                'Complete your transformation assessment (15-20 minutes)',
+                'Review your personalised Success Map and recommendations'
+            ],
+            'athena-premium': [
+                'Check your email for your Athena V3 access link',
+                'Complete your transformation assessment',
+                'Book your 1:1 strategy session using the link in your email',
+                'Prepare for your session with your Success Map results'
+            ],
+            'start-right-30': [
+                'Check your email for cohort onboarding details',
+                'Book your kick-off call with your facilitator',
+                'Join the private cohort community',
+                'Prepare for Day 1 with the pre-work materials'
+            ],
+            'throughput-90': [
+                'Check your email for programme access details',
+                'Book your strategy alignment call',
+                'Complete Steps 4-6 assessment (Week 1-4)',
+                'Prepare for your GO/NO-GO checkpoint'
+            ],
+            'opsmax-360': [
+                'Your dedicated success manager will contact you within 24 hours',
+                'Schedule your transformation kick-off workshop',
+                'Receive your customised 360-day implementation roadmap',
+                'Begin Phase 1 with full team onboarding'
+            ]
+        };
+
+        // Format currency
+        function formatCurrency(amount, currency) {
+            const formatter = new Intl.NumberFormat('en-GB', {
+                style: 'currency',
+                currency: currency?.toUpperCase() || 'GBP',
+            });
+            return formatter.format(amount / 100);
+        }
+
+        // Show error state
+        function showError(message) {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('success-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+            if (message) {
+                document.getElementById('error-message').textContent = message;
+            }
+        }
+
+        // Show success state with data
+        function showSuccess(data) {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'none';
+            document.getElementById('success-state').style.display = 'block';
+
+            // Populate order details
+            document.getElementById('product-name').textContent = data.productName || data.productId || '-';
+            document.getElementById('order-number').textContent = data.orderNumber || '-';
+            document.getElementById('customer-email').textContent = data.customerEmail || '-';
+            document.getElementById('email-display').textContent = data.customerEmail || 'your email';
+            document.getElementById('order-total').textContent = formatCurrency(data.amountTotal, data.currency);
+
+            // Update page title
+            document.title = `Thank You - ${data.productName || 'Purchase Complete'} | BusinessGPS.ai`;
+
+            // Update next steps based on product
+            const steps = productSteps[data.productId] || productSteps['athena-standard'];
+            const stepsList = document.getElementById('next-steps-list');
+            stepsList.innerHTML = steps.map(step => `<li>${step}</li>`).join('');
+
+            // Fire GA4 purchase event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'purchase', {
+                    transaction_id: data.orderNumber,
+                    value: data.amountTotal / 100,
+                    currency: data.currency?.toUpperCase() || 'GBP',
+                    items: [{
+                        item_id: data.productId,
+                        item_name: data.productName,
+                        price: data.amountTotal / 100,
+                        quantity: 1
+                    }]
+                });
+            }
+        }
+
+        // Main execution
+        async function init() {
+            // Get session_id from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+
+            if (!sessionId) {
+                showError('No order session found. If you completed a purchase, please check your email for confirmation.');
+                return;
+            }
+
+            try {
+                // Fetch session details from our secure endpoint
+                const response = await fetch(`/.netlify/functions/get-checkout-session?session_id=${encodeURIComponent(sessionId)}`);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to retrieve order details');
+                }
+
+                const data = await response.json();
+
+                // Verify payment was successful
+                if (data.paymentStatus !== 'paid') {
+                    showError('Payment was not completed. Please try your purchase again or contact support.');
+                    return;
+                }
+
+                showSuccess(data);
+            } catch (error) {
+                console.error('Error fetching session:', error);
+                showError(error.message || 'We couldn\'t verify your order. Please contact support.');
+            }
+        }
+
+        // Run on page load
+        init();
+    </script>
+</body>
+</html>

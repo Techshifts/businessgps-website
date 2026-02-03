@@ -1,0 +1,167 @@
+# Netlify Configuration for BusinessGPS.ai
+# Production e-commerce platform with Stripe, AWeber, HubSpot integrations
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Function-specific configuration
+[functions]
+  # Use Node.js 18 for all functions
+  node_bundler = "esbuild"
+
+# Production context (main branch)
+[context.production]
+  environment = { DEPLOY_CONTEXT = "production" }
+
+# Staging context (staging branch)
+[context.staging]
+  environment = { DEPLOY_CONTEXT = "staging" }
+
+# Branch deploy context (feature branches)
+[context.branch-deploy]
+  environment = { DEPLOY_CONTEXT = "preview" }
+
+# Clean URL Redirects
+[[redirects]]
+  from = "/athena-v3"
+  to = "/pages/athena.html"
+  status = 200
+
+[[redirects]]
+  from = "/athena-v3/"
+  to = "/pages/athena.html"
+  status = 200
+
+[[redirects]]
+  from = "/athena"
+  to = "/pages/athena.html"
+  status = 200
+
+[[redirects]]
+  from = "/athena/"
+  to = "/pages/athena.html"
+  status = 200
+
+[[redirects]]
+  from = "/tcm-report"
+  to = "/pages/tcm-report.html"
+  status = 200
+
+[[redirects]]
+  from = "/tcm-report/"
+  to = "/pages/tcm-report.html"
+  status = 200
+
+[[redirects]]
+  from = "/crisis-report"
+  to = "/pages/tcm-report.html"
+  status = 200
+
+[[redirects]]
+  from = "/crisis-report/"
+  to = "/pages/tcm-report.html"
+  status = 200
+
+[[redirects]]
+  from = "/start-right-30"
+  to = "/pages/start-right-30.html"
+  status = 200
+
+[[redirects]]
+  from = "/start-right-30/"
+  to = "/pages/start-right-30.html"
+  status = 200
+
+[[redirects]]
+  from = "/throughput-90"
+  to = "/pages/throughput-90.html"
+  status = 200
+
+[[redirects]]
+  from = "/throughput-90/"
+  to = "/pages/throughput-90.html"
+  status = 200
+
+[[redirects]]
+  from = "/opsmax-360"
+  to = "/pages/opsmax-360.html"
+  status = 200
+
+[[redirects]]
+  from = "/opsmax-360/"
+  to = "/pages/opsmax-360.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/pages/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout/"
+  to = "/pages/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/thank-you"
+  to = "/pages/thank-you.html"
+  status = 200
+
+[[redirects]]
+  from = "/thank-you/"
+  to = "/pages/thank-you.html"
+  status = 200
+
+# API redirects for functions (optional cleaner URLs)
+[[redirects]]
+  from = "/api/checkout"
+  to = "/.netlify/functions/create-checkout-session"
+  status = 200
+
+[[redirects]]
+  from = "/api/session"
+  to = "/.netlify/functions/get-checkout-session"
+  status = 200
+
+[[redirects]]
+  from = "/api/subscribe"
+  to = "/.netlify/functions/aweber-subscribe"
+  status = 200
+
+# Custom headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # CSP allowing Stripe and GA4
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Ensure thank-you page is not cached (important for Stripe sessions)
+[[headers]]
+  for = "/pages/thank-you.html"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
+
+[[headers]]
+  for = "/thank-you"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate"
