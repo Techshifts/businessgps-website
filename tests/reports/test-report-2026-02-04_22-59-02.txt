@@ -1,0 +1,47 @@
+
+═══════════════════════════════════════════════════════════
+ BusinessGPS API Test Suite
+═══════════════════════════════════════════════════════════
+ Environment: [0;36mstaging[0m
+ Base URL:    [0;36mhttps://staging--businessgps.netlify.app[0m
+ Timestamp:   Wed  4 Feb 2026 22:59:02 GMT
+ Safe Mode:   ✓ Yes
+═══════════════════════════════════════════════════════════
+
+[0;34m━━━ Endpoint Availability ━━━[0m
+  [0;32m✓[0m Homepage loads
+  [0;32m✓[0m Checkout page loads
+  [0;32m✓[0m create-checkout-session endpoint
+  [0;32m✓[0m get-checkout-session endpoint
+  [0;32m✓[0m stripe-webhook endpoint
+
+[0;34m━━━ Product Checkout API ━━━[0m
+  [0;32m✓[0m athena-standard (£67)
+  [0;32m✓[0m athena-premium (£297)
+  [0;32m✓[0m start-right-30 (£1997)
+  [0;32m✓[0m throughput-90 (£5997)
+  [0;32m✓[0m opsmax-360 (£15000)
+
+[0;34m━━━ Error Handling ━━━[0m
+  [0;32m✓[0m Rejects invalid product ID
+  [0;32m✓[0m Rejects missing product ID
+  [0;32m✓[0m Handles invalid JSON
+
+[0;34m━━━ Environment Configuration ━━━[0m
+  [0;32m✓[0m Stripe in test mode
+  [0;32m✓[0m All price IDs unique
+  [0;32m✓[0m Supabase configured
+
+═══════════════════════════════════════════════════════════
+ TEST SUMMARY
+═══════════════════════════════════════════════════════════
+
+ Total:   16
+ [0;32mPassed:  16[0m
+ [0;31mFailed:  0[0m
+ [1;33mSkipped: 0[0m
+
+ [0;32m═══ ALL TESTS PASSED ═══[0m
+
+ Report saved to: /Users/markwaller/Library/Mobile Documents/iCloud~md~obsidian/Documents/Claude Memory/BusinessGPS/Products/Website-Build/businessgps-netlify/tests/api/../reports/test-report-2026-02-04_22-59-02.txt
+═══════════════════════════════════════════════════════════
