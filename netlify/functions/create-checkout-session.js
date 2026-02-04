@@ -67,16 +67,17 @@ exports.handler = async (event) => {
     }
 
     // Get the site URL for redirects
-    // Priority: DEPLOY_PRIME_URL (branch URL) > DEPLOY_URL (deploy-specific) > URL (primary domain)
-    // This ensures staging stays on staging, not redirect to production
-    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || process.env.URL || 'http://localhost:8888';
+    // Use the Host header from the request to ensure we redirect back to the same domain
+    // This makes staging stay on staging, production stay on production
+    const host = event.headers.host || event.headers.Host;
+    const protocol = 'https'; // Netlify always uses HTTPS
+    const siteUrl = host ? `${protocol}://${host}` : (process.env.URL || 'http://localhost:8888');
 
     // Log for debugging (check in Netlify function logs)
     console.log('Redirect URL config:', {
-      DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL,
-      DEPLOY_URL: process.env.DEPLOY_URL,
-      URL: process.env.URL,
-      using: siteUrl
+      host_header: host,
+      computed_url: siteUrl,
+      fallback_URL: process.env.URL
     });
     const finalSuccessUrl = successUrl || `${siteUrl}/pages/thank-you.html?session_id={CHECKOUT_SESSION_ID}`;
     const finalCancelUrl = cancelUrl || `${siteUrl}/pages/checkout.html?product=${productId}&cancelled=true`;
