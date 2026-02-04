@@ -278,3 +278,4 @@ Instant rollback, no code changes needed.
 
 Built with Netlify Functions, Stripe Checkout, Supabase, AWeber, HubSpot, and GA4.
 
+# Trigger redeploy for env var update
