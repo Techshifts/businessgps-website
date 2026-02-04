@@ -1,0 +1,93 @@
+{
+  "products": {
+    "athena-standard": {
+      "name": "Athena V3 - Standard",
+      "price_gbp": 67,
+      "price_pence": 6700,
+      "description": "AI-guided strategy assessment (Steps 1-9)",
+      "env_var": "STRIPE_PRICE_ATHENA_STD",
+      "checkout_path": "/pages/checkout?product=athena-standard",
+      "expected_steps": [
+        "Check email for Athena V3 access link",
+        "Complete transformation assessment",
+        "Review personalised Success Map"
+      ]
+    },
+    "athena-premium": {
+      "name": "Athena V3 - Premium",
+      "price_gbp": 297,
+      "price_pence": 29700,
+      "description": "Full assessment + 1:1 strategy session",
+      "env_var": "STRIPE_PRICE_ATHENA_PREM",
+      "checkout_path": "/pages/checkout?product=athena-premium",
+      "expected_steps": [
+        "Check email for Athena V3 access link",
+        "Complete transformation assessment",
+        "Book 1:1 strategy session"
+      ]
+    },
+    "start-right-30": {
+      "name": "Start Right 30",
+      "price_gbp": 1997,
+      "price_pence": 199700,
+      "description": "30-day leadership cohort programme (Steps 1-3)",
+      "env_var": "STRIPE_PRICE_SR30",
+      "checkout_path": "/pages/checkout?product=start-right-30",
+      "expected_steps": [
+        "Check email for cohort onboarding",
+        "Book kick-off call",
+        "Join private community"
+      ]
+    },
+    "throughput-90": {
+      "name": "Throughput-90",
+      "price_gbp": 5997,
+      "price_pence": 599700,
+      "description": "Complete strategy assessment (Steps 4-9)",
+      "env_var": "STRIPE_PRICE_TP90",
+      "checkout_path": "/pages/checkout?product=throughput-90",
+      "expected_steps": [
+        "Check email for programme access",
+        "Book strategy alignment call",
+        "Complete Steps 4-6 assessment"
+      ]
+    },
+    "opsmax-360": {
+      "name": "OpsMax-360",
+      "price_gbp": 15000,
+      "price_pence": 1500000,
+      "description": "Full 360-day transformation programme",
+      "env_var": "STRIPE_PRICE_OPSMAX",
+      "checkout_path": "/pages/checkout?product=opsmax-360",
+      "expected_steps": [
+        "Success manager contacts within 24 hours",
+        "Schedule transformation workshop",
+        "Receive 360-day roadmap"
+      ]
+    }
+  },
+  "test_cards": {
+    "success": "4242424242424242",
+    "declined": "4000000000000002",
+    "3d_secure": "4000002760003184",
+    "insufficient_funds": "4000000000009995",
+    "expired": "4000000000000069"
+  },
+  "environments": {
+    "staging": {
+      "base_url": "https://staging--businessgps.netlify.app",
+      "stripe_mode": "test",
+      "safe_to_test": true
+    },
+    "production": {
+      "base_url": "https://capability.ai",
+      "stripe_mode": "live",
+      "safe_to_test": false
+    },
+    "local": {
+      "base_url": "http://localhost:8888",
+      "stripe_mode": "test",
+      "safe_to_test": true
+    }
+  }
+}

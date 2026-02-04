@@ -1,0 +1,92 @@
+{
+  "cards": {
+    "success": {
+      "number": "4242424242424242",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Successful payment"
+    },
+    "declined": {
+      "number": "4000000000000002",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Card declined"
+    },
+    "3d_secure": {
+      "number": "4000002760003184",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Requires 3D Secure authentication"
+    },
+    "insufficient_funds": {
+      "number": "4000000000009995",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Insufficient funds"
+    },
+    "expired": {
+      "number": "4000000000000069",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Expired card"
+    },
+    "incorrect_cvc": {
+      "number": "4000000000000127",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Incorrect CVC"
+    },
+    "processing_error": {
+      "number": "4000000000000119",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Processing error"
+    },
+    "visa_debit": {
+      "number": "4000056655665556",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Visa Debit (UK)"
+    },
+    "mastercard": {
+      "number": "5555555555554444",
+      "expiry": "12/26",
+      "cvc": "123",
+      "description": "Mastercard"
+    },
+    "amex": {
+      "number": "378282246310005",
+      "expiry": "12/26",
+      "cvc": "1234",
+      "description": "American Express"
+    }
+  },
+  "test_addresses": {
+    "uk": {
+      "line1": "123 Test Street",
+      "city": "London",
+      "postal_code": "SW1A 1AA",
+      "country": "GB"
+    },
+    "us": {
+      "line1": "123 Test Street",
+      "city": "New York",
+      "state": "NY",
+      "postal_code": "10001",
+      "country": "US"
+    }
+  },
+  "test_users": {
+    "standard": {
+      "email": "test@example.com",
+      "name": "Test User",
+      "phone": "+44 7700 900000"
+    },
+    "vat_registered": {
+      "email": "business@example.com",
+      "name": "Business Test",
+      "company": "Test Ltd",
+      "vat_number": "GB123456789"
+    }
+  }
+}
