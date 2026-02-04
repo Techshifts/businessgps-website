@@ -67,8 +67,17 @@ exports.handler = async (event) => {
     }
 
     // Get the site URL for redirects
-    // Use DEPLOY_PRIME_URL for branch deploys (staging), fall back to URL for production
-    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.URL || 'http://localhost:8888';
+    // Priority: DEPLOY_PRIME_URL (branch URL) > DEPLOY_URL (deploy-specific) > URL (primary domain)
+    // This ensures staging stays on staging, not redirect to production
+    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || process.env.URL || 'http://localhost:8888';
+
+    // Log for debugging (check in Netlify function logs)
+    console.log('Redirect URL config:', {
+      DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL,
+      DEPLOY_URL: process.env.DEPLOY_URL,
+      URL: process.env.URL,
+      using: siteUrl
+    });
     const finalSuccessUrl = successUrl || `${siteUrl}/pages/thank-you.html?session_id={CHECKOUT_SESSION_ID}`;
     const finalCancelUrl = cancelUrl || `${siteUrl}/pages/checkout.html?product=${productId}&cancelled=true`;
 
