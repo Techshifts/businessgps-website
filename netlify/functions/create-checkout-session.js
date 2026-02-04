@@ -67,7 +67,8 @@ exports.handler = async (event) => {
     }
 
     // Get the site URL for redirects
-    const siteUrl = process.env.URL || 'http://localhost:8888';
+    // Use DEPLOY_PRIME_URL for branch deploys (staging), fall back to URL for production
+    const siteUrl = process.env.DEPLOY_PRIME_URL || process.env.URL || 'http://localhost:8888';
     const finalSuccessUrl = successUrl || `${siteUrl}/pages/thank-you.html?session_id={CHECKOUT_SESSION_ID}`;
     const finalCancelUrl = cancelUrl || `${siteUrl}/pages/checkout.html?product=${productId}&cancelled=true`;
 
