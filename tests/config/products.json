@@ -89,5 +89,63 @@
       "stripe_mode": "test",
       "safe_to_test": true
     }
+  },
+  "integrations": {
+    "stripe": {
+      "env_vars": [
+        "STRIPE_SECRET_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "STRIPE_PRICE_ATHENA_STD",
+        "STRIPE_PRICE_ATHENA_PREM",
+        "STRIPE_PRICE_SR30",
+        "STRIPE_PRICE_TP90",
+        "STRIPE_PRICE_OPSMAX"
+      ],
+      "status": "configured",
+      "test_endpoint": "/.netlify/functions/create-checkout-session"
+    },
+    "supabase": {
+      "env_vars": [
+        "SUPABASE_URL",
+        "SUPABASE_SERVICE_KEY"
+      ],
+      "status": "configured",
+      "tables": ["orders", "product_access", "cohorts", "leads"]
+    },
+    "hubspot": {
+      "env_vars": [
+        "HUBSPOT_API_KEY",
+        "HUBSPOT_PIPELINE_PRODUCTS",
+        "HUBSPOT_PIPELINE_ENTERPRISE",
+        "HUBSPOT_STAGE_CLOSEDWON_PRODUCTS",
+        "HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE"
+      ],
+      "status": "in_progress",
+      "test_endpoint": "/.netlify/functions/hubspot-contact"
+    },
+    "aweber": {
+      "env_vars": [
+        "AWEBER_ACCESS_TOKEN",
+        "AWEBER_ACCOUNT_ID",
+        "AWEBER_LIST_ID_LEADS",
+        "AWEBER_LIST_ID_CUSTOMERS",
+        "AWEBER_LIST_ID_ENTERPRISE"
+      ],
+      "status": "in_progress",
+      "test_endpoint": "/.netlify/functions/aweber-subscribe"
+    },
+    "ga4": {
+      "env_vars": [
+        "GA4_MEASUREMENT_ID"
+      ],
+      "status": "pending",
+      "notes": "Requires search/replace of GA4_TRACKING_ID in HTML files"
+    }
+  },
+  "metadata": {
+    "version": "1.1.0",
+    "last_updated": "2026-02-04",
+    "last_test_run": "2026-02-04 22:59:02",
+    "test_result": "16/16 passed"
   }
 }
