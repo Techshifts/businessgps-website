@@ -179,9 +179,9 @@ exports.handler = async (event) => {
       contactProperties.stripe_customer_id = stripeCustomerId;
     }
     if (source) {
-      contactProperties.hs_lead_status = source === 'tcm-report' ? 'NEW' : 'CUSTOMER';
+      contactProperties.hs_lead_status = source === 'tcm-report' ? 'NEW' : 'OPEN_DEAL';
     } else if (productPurchased) {
-      contactProperties.hs_lead_status = 'CUSTOMER';
+      contactProperties.hs_lead_status = 'OPEN_DEAL';
     }
 
     // Remove undefined values
