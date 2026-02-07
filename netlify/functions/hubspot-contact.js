@@ -5,8 +5,19 @@
 
 const HUBSPOT_API_BASE = 'https://api.hubapi.com';
 
-// Product to pipeline mapping
-const PIPELINE_MAP = {
+// Pipeline and stage config (IDs set via environment variables - differ per HubSpot account)
+const PIPELINES = {
+  products: {
+    id: process.env.HUBSPOT_PIPELINE_PRODUCTS,
+    closedWonStage: process.env.HUBSPOT_STAGE_CLOSEDWON_PRODUCTS,
+  },
+  enterprise: {
+    id: process.env.HUBSPOT_PIPELINE_ENTERPRISE,
+    closedWonStage: process.env.HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE,
+  },
+};
+
+const PRODUCT_PIPELINE_KEY = {
   'athena-standard': 'products',
   'athena-premium': 'products',
   'start-right-30': 'products',
@@ -94,16 +105,20 @@ async function upsertContact(email, properties) {
 }
 
 // Create a deal associated with a contact
-async function createDeal(contactId, dealName, amount, productId, pipeline) {
+async function createDeal(contactId, dealName, amount, productId, pipelineKey) {
+  const pipelineConfig = PIPELINES[pipelineKey];
+  if (!pipelineConfig?.id || !pipelineConfig?.closedWonStage) {
+    throw new Error(`Pipeline config missing for: ${pipelineKey}`);
+  }
+
   // Create the deal
   const deal = await hubspotRequest('/crm/v3/objects/deals', 'POST', {
     properties: {
       dealname: dealName,
       amount: amount.toString(),
-      pipeline: pipeline,
-      dealstage: 'closedwon', // Already purchased
+      pipeline: pipelineConfig.id,
+      dealstage: pipelineConfig.closedWonStage,
       closedate: new Date().toISOString(),
-      product_purchased: productId,
     },
   });
 
@@ -181,7 +196,7 @@ exports.handler = async (event) => {
     // Create deal if requested and we have product info
     let deal = null;
     if (shouldCreateDeal && productPurchased && amount && contactId) {
-      const pipeline = PIPELINE_MAP[productPurchased] || 'products';
+      const pipelineKey = PRODUCT_PIPELINE_KEY[productPurchased] || 'products';
       const productNames = {
         'athena-standard': 'Athena V3 Standard',
         'athena-premium': 'Athena V3 Premium',
@@ -190,7 +205,7 @@ exports.handler = async (event) => {
         'opsmax-360': 'OpsMax-360',
       };
       const dealName = `${productNames[productPurchased] || productPurchased} - ${firstName || email}`;
-      deal = await createDeal(contactId, dealName, amount, productPurchased, pipeline);
+      deal = await createDeal(contactId, dealName, amount, productPurchased, pipelineKey);
     }
 
     return {
