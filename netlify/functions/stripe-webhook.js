@@ -6,11 +6,17 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { getSupabase } = require('./lib/supabase');
 
+// Resolve base URL from request host (handles staging vs production correctly)
+function getSiteUrl(event) {
+  const host = event?.headers?.host;
+  return host ? `https://${host}` : process.env.URL;
+}
+
 // Helper to call AWeber subscribe function
-async function subscribeToAweber(email, firstName, lastName, productId, tags) {
+async function subscribeToAweber(siteUrl, email, firstName, lastName, productId, tags) {
   try {
     // Internal function call to AWeber subscriber
-    const response = await fetch(`${process.env.URL}/.netlify/functions/aweber-subscribe`, {
+    const response = await fetch(`${siteUrl}/.netlify/functions/aweber-subscribe`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -30,9 +36,9 @@ async function subscribeToAweber(email, firstName, lastName, productId, tags) {
 }
 
 // Helper to sync to HubSpot
-async function syncToHubspot(email, firstName, lastName, productId, amount, stripeCustomerId) {
+async function syncToHubspot(siteUrl, email, firstName, lastName, productId, amount, stripeCustomerId) {
   try {
-    const response = await fetch(`${process.env.URL}/.netlify/functions/hubspot-contact`, {
+    const response = await fetch(`${siteUrl}/.netlify/functions/hubspot-contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -130,11 +136,13 @@ exports.handler = async (event) => {
       }
 
       // 2. Add to AWeber customers list with product tag
+      const siteUrl = getSiteUrl(event);
       const productTag = productId.replace(/-/g, '_');
-      await subscribeToAweber(customerEmail, firstName, lastName, productId, [productTag, 'customer']);
+      await subscribeToAweber(siteUrl, customerEmail, firstName, lastName, productId, [productTag, 'customer']);
 
       // 3. Sync to HubSpot
       await syncToHubspot(
+        siteUrl,
         customerEmail,
         firstName,
         lastName,
