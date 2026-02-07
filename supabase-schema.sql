@@ -80,6 +80,19 @@ CREATE INDEX IF NOT EXISTS idx_leads_email ON leads(email);
 CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at DESC);
 
 -- =====================
+-- API TOKENS TABLE
+-- =====================
+-- Stores OAuth tokens that need periodic refresh (e.g., AWeber)
+CREATE TABLE IF NOT EXISTS api_tokens (
+    service TEXT PRIMARY KEY,  -- e.g., 'aweber'
+    access_token TEXT NOT NULL,
+    refresh_token TEXT NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE api_tokens ENABLE ROW LEVEL SECURITY;
+
+-- =====================
 -- FUNCTIONS
 -- =====================
 
