@@ -396,12 +396,10 @@
                 submitBtn.textContent = 'Processing...';
 
                 try {
-                    // Subscribe to AWeber leads list
-                    const response = await fetch('/.netlify/functions/aweber-subscribe', {
+                    // Subscribe to AWeber leads list (non-blocking)
+                    fetch('/.netlify/functions/aweber-subscribe', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             email: email,
                             firstName: firstName,
@@ -410,18 +408,12 @@
                             tags: ['tcm_report', 'lead_magnet'],
                             source: 'tcm-report-page'
                         }),
-                    });
+                    }).catch(err => console.log('AWeber sync error:', err));
 
-                    if (!response.ok) {
-                        throw new Error('Failed to subscribe');
-                    }
-
-                    // Sync to HubSpot as well
+                    // Sync to HubSpot (non-blocking)
                     fetch('/.netlify/functions/hubspot-contact', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             email: email,
                             firstName: firstName,
@@ -438,13 +430,11 @@
                         });
                     }
 
-                    // Show success message and redirect to thank you or PDF
+                    // Show success and redirect to thank you page
                     submitBtn.textContent = 'Success! Check your email...';
                     submitBtn.style.background = 'var(--success-green)';
 
-                    // Redirect to PDF or thank you page after brief delay
                     setTimeout(() => {
-                        // TODO: Replace with actual PDF URL or thank you page
                         window.location.href = '/pages/tcm-report-thanks.html?email=' + encodeURIComponent(email);
                     }, 1500);
 
