@@ -1,0 +1,21 @@
+
+═══════════════════════════════════════════════════════════
+ BusinessGPS API Test Suite
+═══════════════════════════════════════════════════════════
+ Environment: [0;36mstaging[0m
+ Base URL:    [0;36mhttps://staging--businessgps.netlify.app[0m
+ Timestamp:   Sat  7 Feb 2026 19:34:19 GMT
+ Safe Mode:   ✓ Yes
+═══════════════════════════════════════════════════════════
+
+[0;34m━━━ Endpoint Availability ━━━[0m
+  [0;32m✓[0m Homepage loads
+  [0;32m✓[0m Checkout page loads
+  [0;32m✓[0m create-checkout-session endpoint
+  [0;32m✓[0m get-checkout-session endpoint
+  [0;32m✓[0m stripe-webhook endpoint
+
+[0;34m━━━ Product Checkout API ━━━[0m
+  [0;32m✓[0m athena-standard (£67)
+  [0;32m✓[0m athena-premium (£297)
+  [0;32m✓[0m start-right-30 (£1997)
