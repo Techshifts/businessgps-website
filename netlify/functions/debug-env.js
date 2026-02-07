@@ -42,6 +42,22 @@ exports.handler = async (event) => {
       SUPABASE_URL: process.env.SUPABASE_URL || '(not set)',
       SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY ? 'set' : '(not set)',
     },
+    // HubSpot
+    hubspot: {
+      HUBSPOT_API_KEY: process.env.HUBSPOT_API_KEY ? `${process.env.HUBSPOT_API_KEY.substring(0, 12)}...` : '(not set)',
+      HUBSPOT_PIPELINE_PRODUCTS: process.env.HUBSPOT_PIPELINE_PRODUCTS || '(not set)',
+      HUBSPOT_PIPELINE_ENTERPRISE: process.env.HUBSPOT_PIPELINE_ENTERPRISE || '(not set)',
+      HUBSPOT_STAGE_CLOSEDWON_PRODUCTS: process.env.HUBSPOT_STAGE_CLOSEDWON_PRODUCTS || '(not set)',
+      HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE: process.env.HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE || '(not set)',
+    },
+    // AWeber
+    aweber: {
+      AWEBER_ACCESS_TOKEN: process.env.AWEBER_ACCESS_TOKEN ? 'set' : '(not set)',
+      AWEBER_ACCOUNT_ID: process.env.AWEBER_ACCOUNT_ID || '(not set)',
+      AWEBER_LIST_ID_LEADS: process.env.AWEBER_LIST_ID_LEADS || '(not set)',
+      AWEBER_LIST_ID_CUSTOMERS: process.env.AWEBER_LIST_ID_CUSTOMERS || '(not set)',
+      AWEBER_LIST_ID_ENTERPRISE: process.env.AWEBER_LIST_ID_ENTERPRISE || '(not set)',
+    },
   };
 
   // Check for duplicate price IDs
