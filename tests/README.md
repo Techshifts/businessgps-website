@@ -1,39 +1,42 @@
-1# BusinessGPS Test Suite
+# BusinessGPS Test Suite
 
 ## Overview
 
-This directory contains automated tests for the BusinessGPS e-commerce platform. Tests are designed to be:
-- **Repeatable** - Run consistently across environments
-- **Extensible** - Easy to add new products/prices
-- **Environment-aware** - Separate staging vs production testing
+Automated test infrastructure for the BusinessGPS e-commerce platform covering Stripe checkout, HubSpot CRM, and AWeber email marketing integrations.
 
-## Test Strategy
+## Test Coverage (42 tests)
 
-### Test Pyramid
+| Layer | Tool | Tests | Time | What It Checks |
+|-------|------|-------|------|----------------|
+| API Integration | Bash/curl | 30 | ~30s | Endpoints, products, HubSpot, AWeber, env config |
+| E2E Browser | Playwright | 12 | ~7s | Forms, redirects, API integration, Stripe sessions |
+| **Total** | | **42 (41 pass, 1 skip)** | **~40s** | GA4 skipped (awaiting property ID) |
 
-```
-                    ┌─────────────┐
-                    │   E2E/UI    │  ← Playwright (browser automation)
-                    │   Tests     │     Full user journeys
-                   ┌┴─────────────┴┐
-                   │  Integration  │  ← API + Webhook tests
-                   │    Tests      │     Stripe, Supabase, etc.
-                  ┌┴───────────────┴┐
-                  │    API Tests    │  ← Bash/curl scripts
-                  │  (Unit-like)    │     Fast, isolated endpoint tests
-                 ┌┴─────────────────┴┐
-                 │   Configuration   │  ← Environment validation
-                 │     Checks        │     Env vars, URLs, etc.
-                 └───────────────────┘
-```
+### API Test Sections (test-all.sh)
 
-### Test Environments
+| Section | Tests | Coverage |
+|---------|-------|----------|
+| Endpoint Availability | 5 | Homepage, checkout, functions respond |
+| Product Checkout API | 5 | All 5 products create Stripe sessions |
+| Error Handling | 3 | Invalid/missing product ID, bad JSON |
+| HubSpot Integration | 4 | Endpoint, lead contact, deal creation, validation |
+| AWeber Integration | 5 | Endpoint, leads list, customers list, validation |
+| Environment Config | 8 | Stripe test mode, price IDs, Supabase, HubSpot, AWeber config |
+
+### E2E Test Sections (integrations.spec.ts)
+
+| Section | Tests | Coverage |
+|---------|-------|----------|
+| TCM Report Lead Capture | 4 | Form submit + redirect, HubSpot contact, AWeber subscriber, minimal input |
+| Checkout to Stripe | 5 | All 5 products create `cs_test_*` sessions |
+| HubSpot Purchase Flow | 3 | Standard deal, enterprise deal, lead-only contact |
+
+## Test Environments
 
 | Environment | URL | Stripe | Database | Safe to Test? |
 |-------------|-----|--------|----------|---------------|
-| Staging | staging--businessgps.netlify.app | Test mode | businessgps-test | ✅ Yes |
-| Production | capability.ai | Live mode | businessgps (live) | ⚠️ Careful |
-| Local | localhost:8888 | Test mode | Test DB | ✅ Yes |
+| Staging | staging--businessgps.netlify.app | Test mode | businessgps-test | Yes |
+| Production | capability.ai | Live mode | businessgps (live) | Careful |
 
 ## Directory Structure
 
@@ -41,46 +44,37 @@ This directory contains automated tests for the BusinessGPS e-commerce platform.
 tests/
 ├── README.md                    # This file
 ├── config/
-│   ├── products.json           # Product definitions (prices, IDs)
-│   ├── staging.env             # Staging environment config
-│   └── production.env          # Production environment config
+│   └── products.json           # Product definitions (prices, IDs)
 ├── api/
-│   ├── test-checkout.sh        # API endpoint tests
-│   ├── test-webhook.sh         # Webhook tests
-│   └── test-all.sh             # Run all API tests
+│   └── test-all.sh             # Full API test suite (30 tests)
 ├── e2e/
 │   ├── playwright.config.ts    # Playwright configuration
-│   ├── checkout.spec.ts        # Full checkout flow tests
-│   └── pages/                  # Page object models
+│   ├── checkout.spec.ts        # Checkout flow tests (Stripe redirect)
+│   ├── integrations.spec.ts    # HubSpot + AWeber + form E2E tests
+│   └── package.json            # E2E dependencies
 ├── fixtures/
 │   └── test-cards.json         # Stripe test card numbers
-└── reports/
-    └── .gitkeep                # Test reports output
+└── reports/                    # Test run reports (auto-generated)
 ```
 
 ## Quick Start
 
-### Run API Tests (Fast)
 ```bash
+# API tests only (fast, ~30s)
 ./tests/api/test-all.sh staging
+
+# E2E browser tests (~7s)
+cd tests/e2e && npm install && npx playwright test integrations.spec.ts --project=chromium
+
+# Full deployment pipeline (API + E2E + merge to production)
+./scripts/deploy-to-prod.sh
+
+# Dry run (tests only, no merge)
+./scripts/deploy-to-prod.sh --dry-run
+
+# API tests only pipeline (skip E2E, faster)
+./scripts/deploy-to-prod.sh --api-only
 ```
-
-### Run E2E Tests (Full browser)
-```bash
-cd tests/e2e
-npx playwright test
-```
-
-### Run Specific Product Test
-```bash
-./tests/api/test-checkout.sh staging athena-standard
-```
-
-## Adding New Products
-
-1. Add product to `config/products.json`
-2. Set price ID in Netlify environment variables
-3. Run tests to verify
 
 ## Test Cards
 
@@ -90,7 +84,15 @@ npx playwright test
 | 4000 0000 0000 0002 | Declined |
 | 4000 0027 6000 3184 | 3D Secure required |
 
-See `fixtures/test-cards.json` for full list.
+Any future expiry date, any 3-digit CVC.
+
+## Debug Endpoint (Staging Only)
+
+```
+https://staging--businessgps.netlify.app/.netlify/functions/debug-env
+```
+
+Shows all configured environment variables (redacted). Blocked on production.
 
 ---
 
@@ -100,110 +102,79 @@ See `fixtures/test-cards.json` for full list.
 
 #### 1. "The price specified is inactive"
 
-**Symptom:** Checkout API returns error about inactive price.
+**Cause:** Stripe price ID has been archived (happens when you "change" a price — Stripe archives old, creates new).
 
-**Cause:** The Stripe price ID in Netlify env vars has been deactivated/archived in Stripe (often when creating a new price for the same product).
-
-**Solution:**
-1. Go to Stripe Dashboard → Products → Find the product
-2. Copy the **active** price ID (not the archived one)
-3. Update the env var in Netlify
-4. **Trigger a redeploy** (see below)
+**Fix:** Copy the active price ID from Stripe Dashboard, update Netlify env var, redeploy.
 
 #### 2. Environment variable changes not taking effect
 
-**Symptom:** You updated an env var in Netlify but the old value is still being used.
+**Cause:** Netlify functions load env vars at deploy time only.
 
-**Cause:** Netlify functions only load environment variables **at deploy time**, not dynamically.
+**Fix:** Trigger a redeploy after changing any env var (push a commit, or Netlify Dashboard > Deploys > Trigger deploy).
 
-**Solution:**
-```bash
-# Option 1: Push any commit to trigger redeploy
-git commit --allow-empty -m "Trigger redeploy for env var update"
-git push
+#### 3. Live mode vs Test mode price mismatch
 
-# Option 2: Manual redeploy via Netlify Dashboard
-# Deploys → Trigger deploy → Deploy site
-```
+**Cause:** Price ID from wrong Stripe mode.
 
-**Key Learning:** Always redeploy after changing environment variables!
+**Fix:** Staging uses `sk_test_*` key + test mode price IDs. Production uses `sk_live_*` + live mode price IDs. They're different IDs.
 
-#### 3. "No such price" - Live mode vs Test mode mismatch
+#### 4. Redirect goes to production instead of staging
 
-**Symptom:** Error says price exists in live mode but test key was used.
+**Cause:** `process.env.URL` resolves to capability.ai even on staging.
 
-**Cause:** Price ID was created in Stripe **live mode** but the `STRIPE_SECRET_KEY` is a test key (or vice versa).
-
-**Solution:**
-- For staging: Use test mode prices (`sk_test_*` key + test mode price IDs)
-- For production: Use live mode prices (`sk_live_*` key + live mode price IDs)
-- Price IDs are different between modes - you need both sets
-
-#### 4. Redirect goes to wrong URL (e.g., production instead of staging)
-
-**Symptom:** After checkout, thank-you page loads on capability.ai instead of staging.
-
-**Cause:** Netlify's `DEPLOY_PRIME_URL` is not available to functions at runtime.
-
-**Solution:** The code uses `Host` header from the request. If still broken, check:
-- `create-checkout-session.js` uses `event.headers.host`
-- Not hardcoded URLs in the function
+**Fix:** Code uses `Host` header from request. Check `create-checkout-session.js` and `stripe-webhook.js` use `event.headers.host`.
 
 #### 5. Webhook signature verification failed
 
-**Symptom:** Webhook returns "No stripe-signature header" or signature error.
+**Cause:** Missing `stripe-signature` header or wrong `STRIPE_WEBHOOK_SECRET`.
 
-**Cause:**
-- Missing `stripe-signature` header (normal for manual tests)
-- Wrong `STRIPE_WEBHOOK_SECRET` for the environment
+**Fix:** Each environment needs its own webhook endpoint in Stripe with its own signing secret.
 
-**Solution:**
-- Each environment (staging/production) needs its own webhook endpoint in Stripe
-- Each webhook has its own signing secret
-- Match the signing secret to the correct Netlify deploy context
+#### 6. HubSpot pipeline/stage errors
+
+**Cause:** HubSpot uses auto-generated numeric IDs that differ per account (sandbox vs production).
+
+**Fix:** Check env vars `HUBSPOT_PIPELINE_PRODUCTS`, `HUBSPOT_PIPELINE_ENTERPRISE`, `HUBSPOT_STAGE_CLOSEDWON_PRODUCTS`, `HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE`. Use debug endpoint to verify runtime values.
+
+#### 7. AWeber 401 errors
+
+**Cause:** OAuth token expired (tokens last 2 hours).
+
+**Fix:** The auto-refresh mechanism in `aweber-subscribe.js` handles this automatically. If it fails, check the `api_tokens` table in production Supabase has a valid refresh token, and that `AWEBER_TOKEN_STORE_URL` / `AWEBER_TOKEN_STORE_KEY` are set correctly.
 
 ---
 
 ## Lessons Learned
 
-### From 2026-02-04 Testing Session
+### From 2026-02-04 (Initial Stripe Setup)
 
-1. **Netlify env vars require redeploy**
-   - Environment variable changes do NOT take effect immediately
-   - Functions load env vars only at deploy/build time
-   - Always trigger a redeploy after changing env vars
+1. **Netlify env vars require redeploy** — not dynamic
+2. **Use Host header** for URL detection — `DEPLOY_PRIME_URL` not available at runtime
+3. **Stripe archives old prices** — must update env vars with new price IDs
+4. **Test mode isolation** — verify `cs_test_*` session IDs on staging
 
-2. **Netlify deploy context variables**
-   - `DEPLOY_PRIME_URL` and `DEPLOY_URL` are NOT available at runtime in functions
-   - Use request `Host` header instead for dynamic URL detection
-   - This ensures staging stays on staging, production on production
+### From 2026-02-08 (HubSpot + AWeber Integration)
 
-3. **Stripe price lifecycle**
-   - When you "change" a price in Stripe, it archives the old and creates new
-   - The old price ID becomes inactive
-   - You must update env vars with the new price ID
-
-4. **Test mode isolation**
-   - Always verify session IDs start with `cs_test_` on staging
-   - Keep test and live Stripe products/prices completely separate
-   - Use different Supabase projects for test vs production data
-
-5. **Debug endpoint value**
-   - The `debug-env.js` endpoint was invaluable for diagnosing issues
-   - Consider keeping it (restricted to staging) for future debugging
-   - Shows actual runtime values, not what you think is configured
+5. **HubSpot IDs are numeric** — pipeline and stage IDs are auto-generated numbers, not string names
+6. **HubSpot properties are object-specific** — `product_purchased` exists on contacts, not deals
+7. **AWeber tokens expire every 2 hours** — must auto-refresh, not static env vars
+8. **Shared token store** — staging and production share AWeber tokens via production Supabase
+9. **Non-blocking form submissions** — integration failures must never block user redirect
+10. **Host-header routing** — internal function-to-function calls must use Host header, not `process.env.URL`
 
 ---
 
 ## Pre-Deployment Checklist
 
-Before merging staging → production:
+Before merging staging to production:
 
 - [ ] All API tests pass (`./tests/api/test-all.sh staging`)
-- [ ] Manual checkout test completed successfully
+- [ ] All E2E tests pass (`cd tests/e2e && npx playwright test integrations.spec.ts --project=chromium`)
+- [ ] Or run full pipeline: `./scripts/deploy-to-prod.sh --dry-run`
 - [ ] Thank-you page stays on correct domain
 - [ ] Order appears in test Supabase database
-- [ ] Webhook shows successful delivery in Stripe Dashboard
-- [ ] Remove or restrict `debug-env.js` for production
-- [ ] Verify production env vars have LIVE Stripe keys and price IDs
+- [ ] Webhook delivery successful in Stripe Dashboard
+- [ ] Remove `detail: error.message` from `hubspot-contact.js` error responses
+- [ ] Verify `debug-env.js` blocked on production
+- [ ] Production env vars set: Stripe (live keys), HubSpot (Jeremy's account), AWeber (production lists)
 - [ ] Production webhook endpoint configured with live signing secret
