@@ -15,3 +15,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Test artifacts
+tests/e2e/test-results/
+tests/e2e/package-lock.json
