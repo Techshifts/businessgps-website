@@ -235,7 +235,113 @@ fi
 log ""
 
 # ═══════════════════════════════════════════════════════════════
-# SECTION 4: Environment Configuration (staging only)
+# SECTION 4: HubSpot Integration
+# ═══════════════════════════════════════════════════════════════
+log "${BLUE}━━━ HubSpot Integration ━━━${NC}"
+
+# Test: HubSpot endpoint available
+status=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$BASE_URL/.netlify/functions/hubspot-contact" -H "Content-Type: application/json" -d '{}' --max-time 10 2>/dev/null || echo "000")
+if [[ "$status" == "400" || "$status" == "200" || "$status" == "500" ]]; then
+  run_test "hubspot-contact endpoint" "PASS" "HTTP $status"
+else
+  run_test "hubspot-contact endpoint" "FAIL" "HTTP $status"
+fi
+
+# Test: HubSpot contact creation (lead)
+hs_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/hubspot-contact" \
+  -H "Content-Type: application/json" \
+  -d "{\"email\":\"test-suite-$(date +%s)@techshifts.io\",\"firstName\":\"TestSuite\",\"source\":\"tcm-report\"}" --max-time 15 2>/dev/null)
+if echo "$hs_response" | grep -q '"success":true'; then
+  hs_contact_id=$(echo "$hs_response" | python3 -c "import sys,json; print(json.load(sys.stdin).get('contactId',''))" 2>/dev/null)
+  run_test "HubSpot lead contact creation" "PASS" "Contact ID: $hs_contact_id"
+else
+  hs_error=$(echo "$hs_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('detail',d.get('error','Unknown')))" 2>/dev/null || echo "Parse error")
+  run_test "HubSpot lead contact creation" "FAIL" "$hs_error"
+fi
+
+# Test: HubSpot contact + deal creation (purchase)
+hs_deal_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/hubspot-contact" \
+  -H "Content-Type: application/json" \
+  -d "{\"email\":\"test-deal-$(date +%s)@techshifts.io\",\"firstName\":\"DealTest\",\"productPurchased\":\"athena-standard\",\"amount\":67,\"stripeCustomerId\":\"cus_test_suite\",\"createDeal\":true}" --max-time 15 2>/dev/null)
+if echo "$hs_deal_response" | grep -q '"dealId"' && ! echo "$hs_deal_response" | grep -q '"dealId":null'; then
+  hs_deal_id=$(echo "$hs_deal_response" | python3 -c "import sys,json; print(json.load(sys.stdin).get('dealId',''))" 2>/dev/null)
+  run_test "HubSpot contact + deal creation" "PASS" "Deal ID: $hs_deal_id"
+else
+  hs_deal_error=$(echo "$hs_deal_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('detail',d.get('error','Unknown')))" 2>/dev/null || echo "Parse error")
+  run_test "HubSpot contact + deal creation" "FAIL" "$hs_deal_error"
+fi
+
+# Test: HubSpot rejects missing email
+hs_err_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/hubspot-contact" \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"NoEmail"}' --max-time 10 2>/dev/null)
+if echo "$hs_err_response" | grep -q '"error"'; then
+  run_test "HubSpot rejects missing email" "PASS" "Returns error as expected"
+else
+  run_test "HubSpot rejects missing email" "FAIL" "Should return error"
+fi
+
+log ""
+
+# ═══════════════════════════════════════════════════════════════
+# SECTION 5: AWeber Integration
+# ═══════════════════════════════════════════════════════════════
+log "${BLUE}━━━ AWeber Integration ━━━${NC}"
+
+# Test: AWeber endpoint available
+status=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$BASE_URL/.netlify/functions/aweber-subscribe" -H "Content-Type: application/json" -d '{}' --max-time 10 2>/dev/null || echo "000")
+if [[ "$status" == "400" || "$status" == "200" || "$status" == "500" ]]; then
+  run_test "aweber-subscribe endpoint" "PASS" "HTTP $status"
+else
+  run_test "aweber-subscribe endpoint" "FAIL" "HTTP $status"
+fi
+
+# Test: AWeber lead subscription
+aw_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/aweber-subscribe" \
+  -H "Content-Type: application/json" \
+  -d "{\"email\":\"test-suite-$(date +%s)@techshifts.io\",\"firstName\":\"TestSuite\",\"listType\":\"leads\",\"tags\":[\"test_suite\"],\"source\":\"test-suite\"}" --max-time 15 2>/dev/null)
+if echo "$aw_response" | grep -q '"success":true'; then
+  run_test "AWeber leads list subscription" "PASS" "Subscribed successfully"
+else
+  aw_error=$(echo "$aw_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('detail',d.get('error','Unknown')))" 2>/dev/null || echo "Parse error")
+  run_test "AWeber leads list subscription" "FAIL" "$aw_error"
+fi
+
+# Test: AWeber customer subscription
+aw_cust_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/aweber-subscribe" \
+  -H "Content-Type: application/json" \
+  -d "{\"email\":\"test-cust-$(date +%s)@techshifts.io\",\"firstName\":\"CustTest\",\"listType\":\"customers\",\"tags\":[\"test_suite\",\"customer\"],\"source\":\"test-suite\"}" --max-time 15 2>/dev/null)
+if echo "$aw_cust_response" | grep -q '"success":true'; then
+  run_test "AWeber customers list subscription" "PASS" "Subscribed successfully"
+else
+  aw_cust_error=$(echo "$aw_cust_response" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('detail',d.get('error','Unknown')))" 2>/dev/null || echo "Parse error")
+  run_test "AWeber customers list subscription" "FAIL" "$aw_cust_error"
+fi
+
+# Test: AWeber rejects missing email
+aw_err_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/aweber-subscribe" \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"NoEmail","listType":"leads"}' --max-time 10 2>/dev/null)
+if echo "$aw_err_response" | grep -q '"error"'; then
+  run_test "AWeber rejects missing email" "PASS" "Returns error as expected"
+else
+  run_test "AWeber rejects missing email" "FAIL" "Should return error"
+fi
+
+# Test: AWeber rejects invalid list type
+aw_list_response=$(curl -s -X POST "$BASE_URL/.netlify/functions/aweber-subscribe" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@techshifts.io","listType":"nonexistent"}' --max-time 10 2>/dev/null)
+if echo "$aw_list_response" | grep -q '"error"'; then
+  run_test "AWeber rejects invalid list type" "PASS" "Returns error as expected"
+else
+  run_test "AWeber rejects invalid list type" "FAIL" "Should return error"
+fi
+
+log ""
+
+# ═══════════════════════════════════════════════════════════════
+# SECTION 6: Environment Configuration (staging only)
 # ═══════════════════════════════════════════════════════════════
 if [[ "$ENV" == "staging" ]]; then
   log "${BLUE}━━━ Environment Configuration ━━━${NC}"
@@ -266,6 +372,42 @@ if [[ "$ENV" == "staging" ]]; then
     else
       run_test "Supabase configured" "FAIL" "Not configured"
     fi
+
+    # Check HubSpot configured
+    hs_key=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['hubspot']['HUBSPOT_API_KEY'])" 2>/dev/null)
+    if [[ "$hs_key" != "(not set)" && -n "$hs_key" ]]; then
+      run_test "HubSpot API key configured" "PASS" "$hs_key"
+    else
+      run_test "HubSpot API key configured" "FAIL" "Not set"
+    fi
+
+    # Check HubSpot pipelines configured
+    hs_pipeline=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['hubspot']['HUBSPOT_PIPELINE_PRODUCTS'])" 2>/dev/null)
+    if [[ "$hs_pipeline" != "(not set)" && -n "$hs_pipeline" ]]; then
+      run_test "HubSpot pipelines configured" "PASS" "Products: $hs_pipeline"
+    else
+      run_test "HubSpot pipelines configured" "FAIL" "Not set"
+    fi
+
+    # Check AWeber configured
+    aw_account=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['aweber']['AWEBER_ACCOUNT_ID'])" 2>/dev/null)
+    if [[ "$aw_account" != "(not set)" && -n "$aw_account" ]]; then
+      run_test "AWeber account configured" "PASS" "Account: $aw_account"
+    else
+      run_test "AWeber account configured" "FAIL" "Not set"
+    fi
+
+    # Check AWeber lists configured
+    aw_leads=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['aweber']['AWEBER_LIST_ID_LEADS'])" 2>/dev/null)
+    if [[ "$aw_leads" != "(not set)" && -n "$aw_leads" ]]; then
+      run_test "AWeber lists configured" "PASS" "Leads: $aw_leads"
+    else
+      run_test "AWeber lists configured" "FAIL" "Not set"
+    fi
+
+    # GA4 status
+    run_test "GA4 tracking" "SKIP" "Awaiting property ID"
+
   else
     run_test "Debug endpoint available" "FAIL" "Could not fetch debug info"
   fi
