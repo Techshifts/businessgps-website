@@ -113,6 +113,220 @@
   to = "/pages/thank-you.html"
   status = 200
 
+# About, Blog, Contact pages
+[[redirects]]
+  from = "/about"
+  to = "/pages/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/about/"
+  to = "/pages/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/pages/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/"
+  to = "/pages/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/pages/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact/"
+  to = "/pages/contact.html"
+  status = 200
+
+# Team packages page
+[[redirects]]
+  from = "/team-packages"
+  to = "/pages/team-packages.html"
+  status = 200
+
+[[redirects]]
+  from = "/team-packages/"
+  to = "/pages/team-packages.html"
+  status = 200
+
+# Legal pages
+[[redirects]]
+  from = "/privacy"
+  to = "/pages/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy/"
+  to = "/pages/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/pages/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms/"
+  to = "/pages/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/cookies"
+  to = "/pages/cookies.html"
+  status = 200
+
+[[redirects]]
+  from = "/cookies/"
+  to = "/pages/cookies.html"
+  status = 200
+
+# Portal clean URL redirects
+[[redirects]]
+  from = "/portal"
+  to = "/portal/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/"
+  to = "/portal/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/dashboard"
+  to = "/portal/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/dashboard/"
+  to = "/portal/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena"
+  to = "/portal/athena/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/"
+  to = "/portal/athena/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/guide"
+  to = "/portal/athena/guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/guide/"
+  to = "/portal/athena/guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/workbooks"
+  to = "/portal/athena/workbooks.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/workbooks/"
+  to = "/portal/athena/workbooks.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/resources"
+  to = "/portal/athena/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/athena/resources/"
+  to = "/portal/athena/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30"
+  to = "/portal/sr30/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/"
+  to = "/portal/sr30/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/sessions"
+  to = "/portal/sr30/sessions.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/sessions/"
+  to = "/portal/sr30/sessions.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/materials"
+  to = "/portal/sr30/materials.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/materials/"
+  to = "/portal/sr30/materials.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/prompts"
+  to = "/portal/sr30/prompts.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/prompts/"
+  to = "/portal/sr30/prompts.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/resources"
+  to = "/portal/sr30/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/resources/"
+  to = "/portal/sr30/resources.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/contact"
+  to = "/portal/sr30/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/sr30/contact/"
+  to = "/portal/sr30/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/throughput-90"
+  to = "/portal/throughput-90/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/throughput-90/"
+  to = "/portal/throughput-90/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/opsmax-360"
+  to = "/portal/opsmax-360/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal/opsmax-360/"
+  to = "/portal/opsmax-360/index.html"
+  status = 200
+
 # API redirects for functions (optional cleaner URLs)
 [[redirects]]
   from = "/api/checkout"
@@ -129,6 +343,22 @@
   to = "/.netlify/functions/aweber-subscribe"
   status = 200
 
+# Portal API redirects
+[[redirects]]
+  from = "/api/portal-invite"
+  to = "/.netlify/functions/portal-invite"
+  status = 200
+
+[[redirects]]
+  from = "/api/portal-members"
+  to = "/.netlify/functions/portal-members"
+  status = 200
+
+[[redirects]]
+  from = "/api/portal-revoke"
+  to = "/.netlify/functions/portal-revoke"
+  status = 200
+
 # Custom headers for security and performance
 [[headers]]
   for = "/*"
@@ -138,12 +368,12 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     # CSP allowing Stripe and GA4
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://assets.calendly.com; frame-src https://js.stripe.com https://hooks.stripe.com https://calendly.com; connect-src 'self' https://api.stripe.com https://www.google-analytics.com https://analytics.google.com https://calendly.com https://rqffoadqydlebipkeckw.supabase.co; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com;"
 
 [[headers]]
   for = "/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=3600"
 
 [[headers]]
   for = "/images/*"

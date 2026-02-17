@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | BusinessGPS.ai</title>
+    <meta name="description" content="Your BusinessGPS.ai client portal dashboard.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css?v=20260217">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div id="portal-nav"></div>
+
+    <div id="portal-content" style="display: none;" data-required-product="any">
+        <div class="portal-main">
+            <div class="portal-main-inner">
+                <main id="main-content">
+
+                    <div class="portal-welcome" id="welcome-banner">
+                        <h1>Welcome back</h1>
+                        <p>Choose a workspace below to get started.</p>
+                    </div>
+
+                    <div class="portal-access-denied" id="access-denied">
+                        <p><strong>Access notice:</strong> You don't currently have access to that section. Explore the workspaces available to you below.</p>
+                    </div>
+
+                    <div class="portal-product-grid" id="product-grid">
+                        <!-- Populated by JS based on user's product access -->
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div id="portal-loading" class="portal-loading">
+        <div class="portal-spinner"></div>
+    </div>
+
+    <script src="../js/supabase.min.js"></script>
+    <script src="../js/portal-auth.js"></script>
+    <script>
+        document.addEventListener('portal-ready', function(e) {
+            var user = e.detail;
+            var grid = document.getElementById('product-grid');
+            var welcome = document.getElementById('welcome-banner');
+
+            // Personalise welcome
+            welcome.querySelector('h1').textContent = 'Welcome back, ' + user.name;
+
+            // Show access denied banner if redirected
+            var denied = sessionStorage.getItem('portal_access_denied');
+            if (denied) {
+                document.getElementById('access-denied').style.display = 'block';
+                sessionStorage.removeItem('portal_access_denied');
+            }
+
+            // SR30 users also get Athena
+            var products = user.products.slice();
+            if (products.indexOf('sr30') !== -1 && products.indexOf('athena') === -1) {
+                products.push('athena');
+            }
+
+            var cards = [
+                {
+                    id: 'athena',
+                    name: 'Athena',
+                    desc: 'Your readiness assessment workspace. Instructions, workbooks, and resources to guide your transformation journey.',
+                    href: '/portal/athena/',
+                    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
+                },
+                {
+                    id: 'sr30',
+                    name: 'Start Right-30',
+                    desc: 'Your 30-day programme hub. Session recordings, materials, structured prompts, and direct contact with your team.',
+                    href: '/portal/sr30/',
+                    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+                },
+                {
+                    id: 'throughput-90',
+                    name: 'Throughput-90',
+                    desc: 'Build sustained throughput over 90 days. Structured capability building for transformation teams.',
+                    href: '/portal/throughput-90/',
+                    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+                    locked: true
+                },
+                {
+                    id: 'opsmax-360',
+                    name: 'OpsMax-360',
+                    desc: 'Full operational transformation support. Continuous improvement at scale across your organisation.',
+                    href: '/portal/opsmax-360/',
+                    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+                    locked: true
+                }
+            ];
+
+            var html = '';
+            cards.forEach(function(card) {
+                var hasAccess = products.indexOf(card.id) !== -1;
+                var isLocked = card.locked && !hasAccess;
+
+                html += '<a href="' + card.href + '" class="portal-product-card' + (isLocked ? ' portal-product-card-locked' : '') + '">';
+                html += '<div class="portal-product-icon">' + card.icon + '</div>';
+                html += '<h2>' + card.name;
+                if (isLocked) {
+                    html += ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align: middle; color: var(--cool-gray);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+                }
+                html += '</h2>';
+                html += '<p>' + card.desc + '</p>';
+
+                if (isLocked) {
+                    html += '<span class="badge badge-navy mt-md">Coming Soon</span>';
+                } else if (hasAccess) {
+                    html += '<span class="btn btn-primary btn-sm mt-md">Open Workspace</span>';
+                } else {
+                    html += '<span class="btn btn-secondary btn-sm mt-md">Learn More</span>';
+                }
+
+                html += '</a>';
+            });
+
+            grid.innerHTML = html;
+        });
+    </script>
+</body>
+</html>

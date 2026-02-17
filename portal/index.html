@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | BusinessGPS.ai</title>
+    <meta name="description" content="Access your BusinessGPS.ai client portal. Log in to access your workspace, programme materials, and resources.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Client Portal | BusinessGPS.ai">
+    <meta property="og:description" content="Access your BusinessGPS.ai client portal.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://capability.ai/portal/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Client Portal | BusinessGPS.ai">
+    <meta name="twitter:description" content="Access your BusinessGPS.ai client portal.">
+
+    <!-- No indexing for portal pages -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css?v=20260217">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div id="portal-content">
+        <main id="main-content">
+            <div class="portal-login">
+                <div class="portal-login-card">
+                    <div class="portal-login-logo">
+                        <a href="/" class="portal-logo">Business<span>GPS</span>.ai</a>
+                    </div>
+                    <h1>Client Portal</h1>
+                    <p class="portal-login-subtitle">Sign in to access your workspace, programme materials, and resources.</p>
+
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email" class="form-label">Email address</label>
+                            <input type="email" id="login-email" name="email" class="form-input" placeholder="you@company.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">Send Magic Link</button>
+                    </form>
+
+                    <div id="login-success" class="portal-login-success hidden">
+                        <div class="portal-login-success-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <h2>Check Your Email</h2>
+                        <p>We've sent a magic link to <strong id="login-email-display"></strong>. Click the link in the email to sign in.</p>
+                        <p class="text-caption">The link expires in 1 hour. Check your spam folder if you don't see it.</p>
+                    </div>
+
+                    <div id="login-error" class="portal-login-error hidden">
+                        <p id="login-error-text"></p>
+                    </div>
+
+                    <div class="portal-login-footer">
+                        <p>Don't have an account? <a href="/athena">Try Athena free</a> or <a href="/contact">contact us</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="portal-loading" class="portal-loading">
+        <div class="portal-spinner"></div>
+    </div>
+
+    <style>
+        .portal-login {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--navy);
+            padding: var(--spacing-xl);
+        }
+
+        .portal-login-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-2xl);
+            max-width: 440px;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .portal-login-logo {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .portal-login-logo .portal-logo {
+            font-size: var(--font-size-2xl);
+            color: var(--navy);
+        }
+
+        .portal-login-card h1 {
+            font-size: var(--font-size-2xl);
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .portal-login-subtitle {
+            text-align: center;
+            color: var(--cool-gray);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .portal-login-success {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .portal-login-success-icon {
+            width: 64px;
+            height: 64px;
+            background-color: var(--teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            color: var(--teal);
+        }
+
+        .portal-login-success h2 {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .portal-login-error {
+            background-color: rgba(229, 62, 62, 0.08);
+            border: 1px solid var(--error-red);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            color: var(--error-red);
+            font-size: var(--font-size-sm);
+        }
+
+        .portal-login-footer {
+            text-align: center;
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--soft-gray);
+            font-size: var(--font-size-sm);
+            color: var(--cool-gray);
+        }
+    </style>
+
+    <script src="../js/supabase.min.js"></script>
+    <script src="../js/portal-auth.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            var btn = document.getElementById('login-btn');
+            var emailInput = document.getElementById('login-email');
+            var email = emailInput.value.trim();
+
+            if (!email) return;
+
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            try {
+                var result = await window.portalAuth.signInWithOtp(email);
+
+                if (result.error) {
+                    document.getElementById('login-error-text').textContent = result.error.message;
+                    document.getElementById('login-error').classList.remove('hidden');
+                    btn.textContent = 'Send Magic Link';
+                    btn.disabled = false;
+                    return;
+                }
+
+                document.getElementById('login-form').classList.add('hidden');
+                document.getElementById('login-email-display').textContent = email;
+                document.getElementById('login-success').classList.remove('hidden');
+            } catch (err) {
+                document.getElementById('login-error-text').textContent = 'Something went wrong. Please try again.';
+                document.getElementById('login-error').classList.remove('hidden');
+                btn.textContent = 'Send Magic Link';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

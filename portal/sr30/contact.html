@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Your Programme Team | BusinessGPS.ai</title>
+    <meta name="description" content="Get in touch with your Start Right-30 programme team or book a call directly.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css?v=20260217">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div id="portal-nav"></div>
+
+    <div id="portal-content" style="display: none;" data-required-product="sr30">
+        <div class="portal-main">
+            <div class="portal-main-inner">
+                <main id="main-content">
+
+                    <h1>Contact Your Programme Team</h1>
+                    <p>Have a question about your programme? Get in touch or book a call directly.</p>
+
+                    <div class="grid grid-2">
+
+                        <div class="portal-card">
+                            <h2>Book a Call</h2>
+                            <div class="calendly-container">
+                                <div class="calendly-inline-widget" data-url="https://calendly.com/jeremy-white-techshifts"></div>
+                            </div>
+                            <p>If the booking widget doesn't load, <a href="https://calendly.com/jeremy-white-techshifts">use the direct link</a>.</p>
+                        </div>
+
+                        <div class="portal-card">
+                            <h2>Send a Message</h2>
+                            <form name="portal-contact" method="POST" data-netlify="true">
+                                <input type="hidden" name="form-name" value="portal-contact">
+
+                                <div class="form-group">
+                                    <label for="contact-name">Your Name</label>
+                                    <input type="text" id="contact-name" name="name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contact-email">Email Address</label>
+                                    <input type="email" id="contact-email" name="email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contact-subject">Subject</label>
+                                    <select id="contact-subject" name="subject">
+                                        <option value="Programme Question">Programme Question</option>
+                                        <option value="Technical Issue">Technical Issue</option>
+                                        <option value="Schedule Change">Schedule Change</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contact-message">Message</label>
+                                    <textarea id="contact-message" name="message" rows="5" required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+                            </form>
+                            <div class="form-success" hidden>
+                                <p>Message sent. We'll get back to you within 1 business day.</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div id="portal-loading" class="portal-loading">
+        <div class="portal-spinner"></div>
+    </div>
+
+    <script src="../../js/supabase.min.js"></script>
+    <script src="../../js/portal-auth.js"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</body>
+</html>

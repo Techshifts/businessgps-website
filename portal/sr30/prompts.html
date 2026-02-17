@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompts &amp; Workspace | BusinessGPS.ai</title>
+    <meta name="description" content="Structured prompts designed for your Start Right-30 transformation work. Copy any prompt to your clipboard.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css?v=20260217">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div id="portal-nav"></div>
+
+    <div id="portal-content" style="display: none;" data-required-product="sr30">
+        <div class="portal-main">
+            <div class="portal-main-inner">
+                <main id="main-content">
+
+                    <h1>Prompts &amp; Workspace</h1>
+                    <p>Structured prompts designed for your transformation work. Click to copy any prompt to your clipboard.</p>
+
+                    <div class="portal-tags">
+                        <button class="portal-tag portal-tag-active" data-filter="all">All</button>
+                        <button class="portal-tag" data-filter="strategy">Strategy</button>
+                        <button class="portal-tag" data-filter="assessment">Assessment</button>
+                        <button class="portal-tag" data-filter="team">Team</button>
+                        <button class="portal-tag" data-filter="operations">Operations</button>
+                    </div>
+
+                    <div class="portal-prompt-grid">
+
+                        <div class="portal-prompt-card" data-category="strategy">
+                            <h2>Strategic Clarity Check</h2>
+                            <span class="badge badge-teal">Strategy</span>
+                            <pre>Review our current transformation goals and answer:
+1) What are we trying to achieve in the next 90 days?
+2) What is the single biggest constraint preventing progress?
+3) What would change if we removed that constraint?
+4) Who needs to be involved in removing it?</pre>
+                            <button class="portal-prompt-copy" type="button">Copy</button>
+                        </div>
+
+                        <div class="portal-prompt-card" data-category="assessment">
+                            <h2>Readiness Assessment Prep</h2>
+                            <span class="badge badge-teal">Assessment</span>
+                            <pre>Before running the Athena assessment, gather these inputs:
+1) Current state description for each business area in scope
+2) List of active transformation initiatives
+3) Known blockers and dependencies
+4) Team capacity and availability for the next quarter</pre>
+                            <button class="portal-prompt-copy" type="button">Copy</button>
+                        </div>
+
+                        <div class="portal-prompt-card" data-category="team">
+                            <h2>Team Alignment Session</h2>
+                            <span class="badge badge-teal">Team</span>
+                            <pre>Run this alignment exercise with your leadership team:
+1) Each person writes their top 3 transformation priorities silently
+2) Share and compare — look for gaps, not agreement
+3) Identify where priorities conflict
+4) Agree on ONE priority that everyone supports for the next 30 days</pre>
+                            <button class="portal-prompt-copy" type="button">Copy</button>
+                        </div>
+
+                        <div class="portal-prompt-card" data-category="operations">
+                            <h2>Operational Constraint Map</h2>
+                            <span class="badge badge-teal">Operations</span>
+                            <pre>Map your operational constraints:
+1) List every handoff point in your core delivery process
+2) Identify where work queues up (WIP > capacity)
+3) Measure the wait time at each queue
+4) The longest queue is your constraint — everything else subordinates to it</pre>
+                            <button class="portal-prompt-copy" type="button">Copy</button>
+                        </div>
+
+                    </div>
+
+                    <section class="section-spacing">
+                        <div class="portal-card">
+                            <h2>Your Progress</h2>
+                            <ul class="portal-checklist">
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="sr30-check-1" id="sr30-check-1">
+                                        Completed strategic clarity check
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="sr30-check-2" id="sr30-check-2">
+                                        Gathered assessment inputs
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="sr30-check-3" id="sr30-check-3">
+                                        Run team alignment session
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="sr30-check-4" id="sr30-check-4">
+                                        Mapped operational constraints
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input type="checkbox" name="sr30-check-5" id="sr30-check-5">
+                                        Reviewed results with programme team
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div id="portal-loading" class="portal-loading">
+        <div class="portal-spinner"></div>
+    </div>
+
+    <script src="../../js/supabase.min.js"></script>
+    <script src="../../js/portal-auth.js"></script>
+    <script>
+        (function() {
+            /* Category filtering */
+            var tags = document.querySelectorAll('.portal-tag');
+            var cards = document.querySelectorAll('.portal-prompt-card');
+
+            tags.forEach(function(tag) {
+                tag.addEventListener('click', function() {
+                    var filter = this.getAttribute('data-filter');
+
+                    tags.forEach(function(t) { t.classList.remove('portal-tag-active'); });
+                    this.classList.add('portal-tag-active');
+
+                    cards.forEach(function(card) {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.removeAttribute('hidden');
+                        } else {
+                            card.setAttribute('hidden', '');
+                        }
+                    });
+                });
+            });
+
+            /* Copy to clipboard */
+            var copyButtons = document.querySelectorAll('.portal-prompt-copy');
+
+            copyButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var pre = this.parentElement.querySelector('pre');
+                    var text = pre.textContent;
+                    var button = this;
+
+                    navigator.clipboard.writeText(text).then(function() {
+                        button.textContent = 'Copied!';
+                        setTimeout(function() {
+                            button.textContent = 'Copy';
+                        }, 2000);
+                    });
+                });
+            });
+
+            /* Checklist localStorage persistence */
+            var STORAGE_KEY = 'sr30-checklist';
+            var checkboxes = document.querySelectorAll('.portal-checklist input[type="checkbox"]');
+
+            function saveChecklist() {
+                var state = {};
+                checkboxes.forEach(function(cb) {
+                    state[cb.id] = cb.checked;
+                });
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            }
+
+            function loadChecklist() {
+                var stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    var state = JSON.parse(stored);
+                    checkboxes.forEach(function(cb) {
+                        if (state[cb.id] !== undefined) {
+                            cb.checked = state[cb.id];
+                        }
+                    });
+                }
+            }
+
+            loadChecklist();
+
+            checkboxes.forEach(function(cb) {
+                cb.addEventListener('change', saveChecklist);
+            });
+        })();
+    </script>
+</body>
+</html>

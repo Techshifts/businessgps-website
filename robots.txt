@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Sitemap: https://capability.ai/sitemap.xml
+
+# Block utility/test pages
+Disallow: /pages/team-packages%202.html
+
+# Block portal from indexing
+Disallow: /portal/
+Disallow: /portal/files/
