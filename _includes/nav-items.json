@@ -1,0 +1,22 @@
+{
+    "index.html": {
+        "cta_text": "Start Free",
+        "cta_href": "pages/athena.html",
+        "cta_class": "btn btn-primary btn-sm"
+    },
+    "pages/opsmax-360.html": {
+        "cta_text": "Book Strategy Call",
+        "cta_href": "https://calendly.com/jeremy-white-techshifts",
+        "cta_class": "btn btn-primary btn-sm"
+    },
+    "pages/contact.html": {
+        "cta_text": "Try Athena",
+        "cta_href": "athena.html",
+        "cta_class": "btn btn-primary btn-sm"
+    },
+    "default": {
+        "cta_text": "Try Athena",
+        "cta_href": "{{PATH_PREFIX}}pages/athena.html",
+        "cta_class": "btn btn-primary btn-sm"
+    }
+}

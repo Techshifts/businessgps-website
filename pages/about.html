@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | BusinessGPS.ai</title>
+    <meta name="description" content="The story of BusinessGPS.ai — from a manual transformation framework to the AI-powered platform helping SMEs build permanent transformation capability.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="About Us | BusinessGPS.ai">
+    <meta property="og:description" content="How a proven transformation framework became an AI-powered platform that puts transformation intelligence on your side.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://capability.ai/about">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://capability.ai/about">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Us | BusinessGPS.ai">
+    <meta name="twitter:description" content="How a proven transformation framework became an AI-powered platform that puts transformation intelligence on your side.">
+    <meta name="twitter:image" content="https://capability.ai/images/tcm-hero.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/styles.css?v=20260211">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
+
+    <style>
+        .about-hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, var(--navy) 0%, #2d4a7c 100%);
+            color: white;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .about-hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .mission-section {
+            padding: 80px 0;
+        }
+        .mission-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+        }
+        .mission-section p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--cool-gray);
+            margin-bottom: 1.5rem;
+        }
+        .mission-highlight {
+            background: rgba(49, 151, 149, 0.08);
+            border-left: 4px solid var(--teal);
+            padding: 24px 32px;
+            border-radius: 0 12px 12px 0;
+            margin: 32px 0;
+        }
+        .mission-highlight p {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        .timeline-section {
+            padding: 80px 0;
+            background: var(--warm-white);
+        }
+        .timeline-section h2 {
+            font-size: 1.75rem;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--soft-gray);
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 64px;
+            margin-bottom: 48px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 14px;
+            top: 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--teal);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--teal);
+        }
+        .timeline-dot.highlight {
+            background: var(--warning-amber);
+            box-shadow: 0 0 0 3px var(--warning-amber);
+        }
+        .timeline-dot.future {
+            background: var(--navy);
+            box-shadow: 0 0 0 3px var(--navy);
+        }
+        .timeline-year {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .timeline-item h3 {
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+        }
+        .timeline-item p, .timeline-item li {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: var(--cool-gray);
+        }
+        .timeline-item ul {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline-item li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+        }
+        .timeline-item li::before {
+            position: absolute;
+            left: 0;
+        }
+        .timeline-item li.success::before { content: '\2713'; color: var(--success-green); font-weight: 700; }
+        .timeline-item li.failure::before { content: '\2717'; color: #E53E3E; font-weight: 700; }
+        .timeline-item li.neutral::before { content: '\2022'; color: var(--teal); }
+
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            font-size: 1.125rem;
+            color: var(--cool-gray);
+            margin-bottom: 32px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 600px) {
+            .about-hero h1 { font-size: 1.75rem; }
+            .timeline-item { padding-left: 56px; }
+        }
+    </style>
+
+    <!-- Google Analytics 4 -->
+    <!-- TODO: Replace GA4_TRACKING_ID with real property ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA4_TRACKING_ID');
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+            <ul class="navbar-nav">
+                <li><a href="../index.html#products">Products</a></li>
+                <li><a href="../index.html#framework">Framework</a></li>
+                <li><a href="tcm-report.html">Free Report</a></li>
+                <li><a href="athena.html" class="btn btn-primary btn-sm">Try Athena</a></li>
+            </ul>
+            <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="main-content">
+    <!-- Hero -->
+    <section class="about-hero">
+        <div class="container container-narrow">
+            <h1>The Evolution of AI-Powered Business Transformation</h1>
+            <p class="subtitle">
+                From a proven framework to an AI-powered platform — putting transformation intelligence on your side, not theirs.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission-section">
+        <div class="container container-narrow">
+            <h2>Our Mission: Transformation Capability Management</h2>
+            <p>
+                We believe transformation should build permanent capability inside your organisation — not permanent dependency on external consultants.
+            </p>
+            <p>
+                BusinessGPS.ai exists because of a simple observation: the consulting industry has a $3.9 trillion incentive to keep you dependent. Every engagement that ends with "we'll need to come back for the next phase" is working as designed — for them.
+            </p>
+
+            <div class="mission-highlight">
+                <p>
+                    We're building the opposite: a platform that makes your organisation smarter with every step, until you don't need us at all.
+                </p>
+            </div>
+
+            <p>
+                Our approach — Transformation Capability Management (TCM) — combines a battle-tested 45-step methodology with AI-powered guidance to give leaders the strategic clarity, operational confidence, and execution intelligence that used to require a team of expensive consultants.
+            </p>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2>How We Got Here</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2021</div>
+                    <h3>The BusinessGPS Framework is Created</h3>
+                    <p>A structured, fault-free business transformation model is developed to guide organisations through strategy, execution, and operations. 45 steps. 9 phases. One methodology that actually works.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2022</div>
+                    <h3>Proven Success &amp; Hard Lessons</h3>
+                    <ul>
+                        <li class="success">Manual application of the framework delivers immense value to clients</li>
+                        <li class="failure">Packaging the framework into traditional consulting services fails to gain traction</li>
+                        <li class="failure">Failure to scale leads to the closure of the original host company</li>
+                    </ul>
+                    <p style="margin-top: 12px;">The framework worked. The business model didn't. A hard reset was needed.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2023</div>
+                    <h3>The AI Revolution Changes Everything</h3>
+                    <ul>
+                        <li class="neutral">ChatGPT launches, making AI-powered business applications viable</li>
+                        <li class="success">BusinessGPS is integrated into an AI engine, unlocking automation and scalability</li>
+                        <li class="success">Dr. Alex Turing, the world's leading AI authority on Business Transformation, is created</li>
+                        <li class="neutral">Chris Skeptos, Turing's AI nemesis, emerges to challenge conventional transformation thinking</li>
+                        <li class="success">Diana AI is built, providing instant answers to all Business Transformation questions</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2024</div>
+                    <h3>Athena: AI-Powered Transformation Guidance</h3>
+                    <ul>
+                        <li class="success">Athena V5.1 is launched to guide users through the 9 steps of Phase 0</li>
+                        <li class="success">Athena Executive is introduced to increase value in the first interaction</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot highlight"></div>
+                    <div class="timeline-year" style="color: var(--warning-amber);">December 2025</div>
+                    <h3>The AI Shift &amp; the Transformation Capability Crisis</h3>
+                    <p>
+                        The consulting industry's pivot to AI creates a seismic shift. Firms that once sold human expertise now sell AI-augmented services — making clients more dependent, not less. We publish <a href="tcm-report.html" class="text-teal">The Transformation Capability Crisis</a> report, exposing the $3.9 trillion problem and the 72% failure rate that the industry doesn't want to talk about.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-year">2025 &ndash; 2026</div>
+                    <h3>The Full AI-Driven Transformation Lifecycle</h3>
+                    <ul>
+                        <li class="success">Athena Executive expands to fully support the Discover, Design, Align (DDA) approach</li>
+                        <li class="success">Start Right-30, Throughput-90, and OpsMax-360 programmes launched</li>
+                        <li class="success">BusinessGPS.ai platform goes live — AI-powered, scalable, sovereign</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot future"></div>
+                    <div class="timeline-year" style="color: var(--navy);">The Future</div>
+                    <h3>A Fully AI-Augmented Transformation Ecosystem</h3>
+                    <p>
+                        BusinessGPS.ai continues to push the boundaries of AI-powered transformation, helping SMEs become adaptable, resilient, and investment-ready — with capability that stays inside the building.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>See where you stand with a free report, or dive straight into your AI-guided assessment.</p>
+            <div class="cta-buttons">
+                <a href="tcm-report.html" class="btn btn-primary">Get the Free Report</a>
+                <a href="athena.html" class="btn btn-secondary">Explore Athena V3</a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+                    <p class="footer-desc">Transformation Capability Management</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="athena.html">Athena V3</a></li>
+                        <li><a href="start-right-30.html">Start Right-30</a></li>
+                        <li><a href="throughput-90.html">Throughput-90</a></li>
+                        <li><a href="opsmax-360.html">OpsMax-360</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="tcm-report.html">TCM Crisis Report</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" aria-label="LinkedIn (coming soon)">LinkedIn</a></li>
+                        <li><a href="#" aria-label="X (coming soon)">X</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BusinessGPS.ai (Techshifts Limited). All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
+        });
+    </script>
+</body>
+</html>

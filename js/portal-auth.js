@@ -10,9 +10,16 @@
 (function () {
   'use strict';
 
-  // ── Config ──
-  var SUPABASE_URL = 'https://rqffoadqydlebipkeckw.supabase.co';
-  var SUPABASE_ANON_KEY = '';
+  // ── Config (environment-aware) ──
+  var isStaging = window.location.hostname.indexOf('staging--') !== -1;
+
+  var SUPABASE_URL = isStaging
+    ? 'https://vidgzttbfzschuhmibhg.supabase.co'
+    : 'https://rqffoadqydlebipkeckw.supabase.co';
+
+  var SUPABASE_ANON_KEY = isStaging
+    ? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpZGd6dHRiZnpzY2h1aG1pYmhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyMTY2MTksImV4cCI6MjA4NTc5MjYxOX0.HOplEcMhiO2PyizX9OW2aV4PzlbUI9D-0AYrEmOL3VM'
+    : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJxZmZvYWRxeWRsZWJpcGtlY2t3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxMTI4MTYsImV4cCI6MjA4NTY4ODgxNn0.xZKdZ2umHymGzVCcxBkDkZBCim3ga3tggV5hg4sheOg';
 
   // Allow config override from global
   if (window.PORTAL_SUPABASE_ANON_KEY) {

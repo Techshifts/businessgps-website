@@ -105,7 +105,7 @@ exports.handler = async (event) => {
             first_name: firstName,
             last_name: lastName,
             product_id: productId,
-            amount_gbp: amountPaid,
+            amount_gbp: Math.round(amountPaid / 100),
             status: 'completed',
           })
           .select()
@@ -140,7 +140,7 @@ exports.handler = async (event) => {
       const productTag = productId.replace(/-/g, '_');
       await subscribeToAweber(siteUrl, customerEmail, firstName, lastName, productId, [productTag, 'customer']);
 
-      // 3. Sync to HubSpot
+      // 3. Sync to HubSpot (with lifecycle properties)
       await syncToHubspot(
         siteUrl,
         customerEmail,
@@ -150,6 +150,8 @@ exports.handler = async (event) => {
         amountPaid / 100, // Convert from pence to pounds
         stripeCustomerId
       );
+
+      console.log(`Purchase processed: ${productId} for ${customerEmail}`);
 
       break;
     }

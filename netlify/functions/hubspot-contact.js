@@ -174,12 +174,22 @@ exports.handler = async (event) => {
     // Add custom properties if we have product info
     if (productPurchased) {
       contactProperties.product_purchased = productPurchased;
+      contactProperties.purchase_date = new Date().toISOString().split('T')[0];
+      // Set customer lifecycle stage based on product
+      contactProperties.customer_stage = 'Onboarding';
+      contactProperties.assessment_status = 'Not Started';
     }
     if (stripeCustomerId) {
       contactProperties.stripe_customer_id = stripeCustomerId;
     }
     if (source) {
-      contactProperties.hs_lead_status = source === 'tcm-report' ? 'NEW' : 'OPEN_DEAL';
+      if (source === 'tcm-report') {
+        contactProperties.hs_lead_status = 'NEW';
+        contactProperties.customer_stage = contactProperties.customer_stage || 'Lead';
+        contactProperties.report_downloaded = 'true';
+      } else {
+        contactProperties.hs_lead_status = 'OPEN_DEAL';
+      }
     } else if (productPurchased) {
       contactProperties.hs_lead_status = 'OPEN_DEAL';
     }
@@ -200,7 +210,7 @@ exports.handler = async (event) => {
       const productNames = {
         'athena-standard': 'Athena V3 Standard',
         'athena-premium': 'Athena V3 Premium',
-        'start-right-30': 'Start Right 30',
+        'start-right-30': 'Start Right-30',
         'throughput-90': 'Throughput-90',
         'opsmax-360': 'OpsMax-360',
       };

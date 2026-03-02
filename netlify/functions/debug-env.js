@@ -1,6 +1,7 @@
 /**
  * Debug Environment Variables (TEMPORARY - remove before going live)
- * Returns non-sensitive environment configuration for debugging
+ * Returns only set/not-set status for environment variables.
+ * NO secret values, prefixes, or IDs are exposed.
  */
 
 exports.handler = async (event) => {
@@ -13,54 +14,55 @@ exports.handler = async (event) => {
     };
   }
 
+  // Helper: returns 'set' or '(not set)' — never leaks values
+  const check = (envVar) => process.env[envVar] ? 'set' : '(not set)';
+
   const config = {
-    // URL configuration
+    // URL configuration (non-sensitive)
     urls: {
       URL: process.env.URL || '(not set)',
       DEPLOY_URL: process.env.DEPLOY_URL || '(not set)',
       DEPLOY_PRIME_URL: process.env.DEPLOY_PRIME_URL || '(not set)',
-      computed_redirect: process.env.DEPLOY_PRIME_URL || process.env.DEPLOY_URL || process.env.URL || 'http://localhost:8888',
     },
-    // Netlify context
+    // Netlify context (non-sensitive)
     context: {
       CONTEXT: process.env.CONTEXT || '(not set)',
       BRANCH: process.env.BRANCH || '(not set)',
-      HEAD: process.env.HEAD || '(not set)',
     },
-    // Stripe config (just checking if set, not values)
+    // Stripe config — set/not-set only
     stripe: {
-      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ? `${process.env.STRIPE_SECRET_KEY.substring(0, 8)}...` : '(not set)',
-      STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET ? 'set' : '(not set)',
-      STRIPE_PRICE_ATHENA_STD: process.env.STRIPE_PRICE_ATHENA_STD || '(not set)',
-      STRIPE_PRICE_ATHENA_PREM: process.env.STRIPE_PRICE_ATHENA_PREM || '(not set)',
-      STRIPE_PRICE_SR30: process.env.STRIPE_PRICE_SR30 || '(not set)',
-      STRIPE_PRICE_TP90: process.env.STRIPE_PRICE_TP90 || '(not set)',
-      STRIPE_PRICE_OPSMAX: process.env.STRIPE_PRICE_OPSMAX || '(not set)',
+      STRIPE_SECRET_KEY: check('STRIPE_SECRET_KEY'),
+      STRIPE_WEBHOOK_SECRET: check('STRIPE_WEBHOOK_SECRET'),
+      STRIPE_PRICE_ATHENA_STD: check('STRIPE_PRICE_ATHENA_STD'),
+      STRIPE_PRICE_ATHENA_PREM: check('STRIPE_PRICE_ATHENA_PREM'),
+      STRIPE_PRICE_SR30: check('STRIPE_PRICE_SR30'),
+      STRIPE_PRICE_TP90: check('STRIPE_PRICE_TP90'),
+      STRIPE_PRICE_OPSMAX: check('STRIPE_PRICE_OPSMAX'),
     },
-    // Supabase (just checking if set)
+    // Supabase — set/not-set only
     supabase: {
-      SUPABASE_URL: process.env.SUPABASE_URL || '(not set)',
-      SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY ? 'set' : '(not set)',
+      SUPABASE_URL: check('SUPABASE_URL'),
+      SUPABASE_SERVICE_KEY: check('SUPABASE_SERVICE_KEY'),
     },
-    // HubSpot
+    // HubSpot — set/not-set only
     hubspot: {
-      HUBSPOT_API_KEY: process.env.HUBSPOT_API_KEY ? `${process.env.HUBSPOT_API_KEY.substring(0, 12)}...` : '(not set)',
-      HUBSPOT_PIPELINE_PRODUCTS: process.env.HUBSPOT_PIPELINE_PRODUCTS || '(not set)',
-      HUBSPOT_PIPELINE_ENTERPRISE: process.env.HUBSPOT_PIPELINE_ENTERPRISE || '(not set)',
-      HUBSPOT_STAGE_CLOSEDWON_PRODUCTS: process.env.HUBSPOT_STAGE_CLOSEDWON_PRODUCTS || '(not set)',
-      HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE: process.env.HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE || '(not set)',
+      HUBSPOT_API_KEY: check('HUBSPOT_API_KEY'),
+      HUBSPOT_PIPELINE_PRODUCTS: check('HUBSPOT_PIPELINE_PRODUCTS'),
+      HUBSPOT_PIPELINE_ENTERPRISE: check('HUBSPOT_PIPELINE_ENTERPRISE'),
+      HUBSPOT_STAGE_CLOSEDWON_PRODUCTS: check('HUBSPOT_STAGE_CLOSEDWON_PRODUCTS'),
+      HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE: check('HUBSPOT_STAGE_CLOSEDWON_ENTERPRISE'),
     },
-    // AWeber
+    // AWeber — set/not-set only
     aweber: {
-      AWEBER_ACCESS_TOKEN: process.env.AWEBER_ACCESS_TOKEN ? 'set' : '(not set)',
-      AWEBER_ACCOUNT_ID: process.env.AWEBER_ACCOUNT_ID || '(not set)',
-      AWEBER_LIST_ID_LEADS: process.env.AWEBER_LIST_ID_LEADS || '(not set)',
-      AWEBER_LIST_ID_CUSTOMERS: process.env.AWEBER_LIST_ID_CUSTOMERS || '(not set)',
-      AWEBER_LIST_ID_ENTERPRISE: process.env.AWEBER_LIST_ID_ENTERPRISE || '(not set)',
+      AWEBER_ACCESS_TOKEN: check('AWEBER_ACCESS_TOKEN'),
+      AWEBER_ACCOUNT_ID: check('AWEBER_ACCOUNT_ID'),
+      AWEBER_LIST_ID_LEADS: check('AWEBER_LIST_ID_LEADS'),
+      AWEBER_LIST_ID_CUSTOMERS: check('AWEBER_LIST_ID_CUSTOMERS'),
+      AWEBER_LIST_ID_ENTERPRISE: check('AWEBER_LIST_ID_ENTERPRISE'),
     },
   };
 
-  // Check for duplicate price IDs
+  // Diagnostics: check for duplicate price IDs without revealing them
   const priceIds = [
     process.env.STRIPE_PRICE_ATHENA_STD,
     process.env.STRIPE_PRICE_ATHENA_PREM,
@@ -72,18 +74,13 @@ exports.handler = async (event) => {
   const uniquePriceIds = [...new Set(priceIds)];
 
   config.diagnostics = {
-    total_price_ids: priceIds.length,
+    total_price_ids_configured: priceIds.length,
     unique_price_ids: uniquePriceIds.length,
     has_duplicates: priceIds.length !== uniquePriceIds.length,
-    duplicate_warning: priceIds.length !== uniquePriceIds.length
+    status: priceIds.length !== uniquePriceIds.length
       ? 'WARNING: Some products share the same price ID!'
       : 'OK: All price IDs are unique',
   };
-
-  // Check if TP90 and OPSMAX are the same
-  if (process.env.STRIPE_PRICE_TP90 === process.env.STRIPE_PRICE_OPSMAX) {
-    config.diagnostics.opsmax_issue = 'ISSUE FOUND: STRIPE_PRICE_TP90 and STRIPE_PRICE_OPSMAX are the same!';
-  }
 
   return {
     statusCode: 200,

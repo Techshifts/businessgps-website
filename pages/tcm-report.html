@@ -10,8 +10,17 @@
     <meta property="og:title" content="Last Tuesday, Your Consultants Used AI That Made Them 50% Faster">
     <meta property="og:description" content="Free executive briefing reveals the capability gap consultancies don't want you to see.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://businessgps.ai/tcm-report/">
-    <meta property="og:image" content="/images/tcm-hero.jpg">
+    <meta property="og:url" content="https://capability.ai/tcm-report">
+    <meta property="og:image" content="https://capability.ai/images/tcm-hero.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://capability.ai/tcm-report">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Last Tuesday, Your Consultants Used AI That Made Them 50% Faster">
+    <meta name="twitter:description" content="Free executive briefing reveals the capability gap consultancies don't want you to see.">
+    <meta name="twitter:image" content="https://capability.ai/images/tcm-hero.jpg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +28,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css?v=20260211">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
@@ -120,6 +129,8 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
@@ -129,13 +140,15 @@
                 <li><a href="../index.html#framework">Framework</a></li>
                 <li><a href="athena.html" class="btn btn-primary btn-sm">Start With Athena</a></li>
             </ul>
-            <button class="navbar-toggle" aria-label="Toggle navigation">
+            <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </nav>
+
+    <main id="main-content">
 
     <!-- Hero Section -->
     <section class="report-hero bg-warm-white">
@@ -147,15 +160,15 @@
 
                     <h1 style="font-size: 2.25rem; line-height: 1.2; margin-bottom: 1.5rem;">
                         Last Tuesday, Your Consultants Used AI That Made Them 50% Faster.<br>
-                        <span style="color: var(--teal);">They Billed You For It.</span><br>
+                        <span class="text-teal">They Billed You For It.</span><br>
                         Then They Took It To Your Competitor.
                     </h1>
 
-                    <p style="font-size: 1.125rem; color: var(--cool-gray); margin-bottom: 2rem; line-height: 1.7;">
+                    <p class="text-body-lg text-gray mb-2xl">
                         This free report reveals the hidden asymmetry behind every failed transformation—and the £297 fix that builds YOUR capability, not theirs.
                     </p>
 
-                    <p style="font-weight: 600; color: var(--navy); margin-bottom: 1rem;">Inside this 15-minute executive briefing:</p>
+                    <p style="font-weight: 600; color: var(--navy); margin-bottom: 1rem;">Inside this 30-minute executive briefing:</p>
 
                     <ul class="discover-list mb-xl">
                         <li>Why 94% of organisations stay stuck at "Beginner" or "Intermediate" maturity—despite millions in consultant fees</li>
@@ -173,13 +186,16 @@
 
                         <form action="#" method="POST" id="report-form">
                             <div class="form-group">
-                                <input type="text" name="first_name" class="form-input" placeholder="First Name" required>
+                                <label for="report-first-name" class="sr-only">First Name</label>
+                                <input type="text" id="report-first-name" name="first_name" class="form-input" placeholder="First Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+                                <label for="report-email" class="sr-only">Email Address</label>
+                                <input type="email" id="report-email" name="email" class="form-input" placeholder="Email Address" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="company" class="form-input" placeholder="Company (optional)">
+                                <label for="report-company" class="sr-only">Company (optional)</label>
+                                <input type="text" id="report-company" name="company" class="form-input" placeholder="Company (optional)">
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg btn-full">
                                 DOWNLOAD THE REPORT →
@@ -203,7 +219,7 @@
             </div>
 
             <div class="text-center mb-2xl">
-                <img src="../images/tcm-hero.jpg" alt="The Transformation Capability Crisis Report" style="max-width: 600px; margin: 0 auto; border-radius: 12px; box-shadow: var(--shadow-xl);">
+                <img src="../images/tcm-hero.jpg" alt="The Transformation Capability Crisis Report" width="864" height="1232" class="img-rounded-xl" style="max-width: 600px; margin: 0 auto;">
             </div>
 
             <div class="grid grid-3">
@@ -233,7 +249,7 @@
             <span style="color: rgba(255,255,255,0.8); font-weight: 600;">Forrester</span>
             <span style="color: rgba(255,255,255,0.8); font-weight: 600;">Gartner</span>
             <span style="color: rgba(255,255,255,0.8); font-weight: 600;">IBM</span>
-            <span style="color: rgba(255,255,255,0.8); font-weight: 600;">Super CFO</span>
+            <span style="color: rgba(255,255,255,0.8); font-weight: 600;">McKinsey</span>
         </div>
     </section>
 
@@ -269,13 +285,13 @@
     <section class="section bg-white">
         <div class="container container-narrow text-center">
             <h2>From BusinessGPS.ai</h2>
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 BusinessGPS.ai is the first Transformation Capability Management (TCM) platform—built to level the playing field between AI-augmented consultancies and the organisations they serve.
             </p>
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 Our O2O methodology has guided over £500M in successful transformations. Now we're making it available to mid-tier organisations who've been locked out of enterprise-grade capability.
             </p>
-            <p style="font-size: 1.125rem; line-height: 1.8; font-weight: 600; color: var(--navy);">
+            <p class="text-body-lg font-semibold text-navy">
                 This report is the first step: understanding the game before you can change it.
             </p>
 
@@ -300,81 +316,75 @@
     <section class="section bg-navy">
         <div class="container container-narrow text-center">
             <h2 class="text-white">You See The Game Now.<br>Get The Full Picture.</h2>
-            <p class="text-white opacity-70" style="font-size: 1.125rem; margin-bottom: 2rem;">
-                15 minutes that could save you millions in misdirected transformation spend.
+            <p class="text-white text-muted-light text-body-lg mb-2xl">
+                30 minutes that could save you millions in misdirected transformation spend.
             </p>
 
             <form class="inline-form" action="#" method="POST">
-                <input type="email" name="email" class="form-input" placeholder="Enter your email" required>
+                <label for="report-email-footer" class="sr-only">Email Address</label>
+                <input type="email" id="report-email-footer" name="email" class="form-input" placeholder="Enter your email" required>
                 <button type="submit" class="btn btn-primary btn-lg">GET THE REPORT →</button>
             </form>
 
-            <p class="text-white opacity-50" style="font-size: 0.75rem; margin-top: 1rem;">
+            <p class="text-white text-muted-lighter" style="font-size: 0.75rem; margin-top: 1rem;">
                 No spam. Unsubscribe anytime. Your data stays yours.
             </p>
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="../index.html" class="navbar-logo" style="color: white;">Business<span style="color: var(--teal);">GPS</span>.ai</a>
-                    <p>The Salesforce of Sovereignty</p>
-                    <p>Building permanent transformation capability on your side.</p>
+                <div class="footer-col">
+                    <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+                    <p class="footer-desc">Transformation Capability Management</p>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Products</h4>
+                <div class="footer-col">
+                    <h4>Products</h4>
                     <ul class="footer-links">
                         <li><a href="athena.html">Athena V3</a></li>
-                        <li><a href="start-right-30.html">Start Right 30</a></li>
-                        <li><a href="throughput-90.html">Throughput 90</a></li>
-                        <li><a href="opsmax-360.html">OpsMax 360</a></li>
+                        <li><a href="start-right-30.html">Start Right-30</a></li>
+                        <li><a href="throughput-90.html">Throughput-90</a></li>
+                        <li><a href="opsmax-360.html">OpsMax-360</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Resources</h4>
+                <div class="footer-col">
+                    <h4>Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="tcm-report.html">TCM Report (Free)</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="tcm-report.html">TCM Crisis Report</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Legal</h4>
+                <div class="footer-col">
+                    <h4>Connect</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#" aria-label="LinkedIn (coming soon)">LinkedIn</a></li>
+                        <li><a href="#" aria-label="X (coming soon)">X</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 BusinessGPS.ai. All rights reserved.</p>
-                <div class="flex gap-md">
-                    <a href="#" style="color: rgba(255,255,255,0.5);">LinkedIn</a>
-                    <a href="#" style="color: rgba(255,255,255,0.5);">Twitter</a>
+                <p>&copy; 2026 BusinessGPS.ai (Techshifts Limited). All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookies.html">Cookie Policy</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Google Analytics 4 -->
-    <!-- GA4_TRACKING_ID will be replaced with actual ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA4_TRACKING_ID');
-    </script>
-
     <!-- Mobile Nav Script -->
     <script>
         document.querySelector('.navbar-toggle').addEventListener('click', function() {
-            document.querySelector('.navbar-nav').classList.toggle('active');
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
         });
 
         // Form submission - AWeber integration
@@ -434,8 +444,11 @@
                     submitBtn.textContent = 'Success! Check your email...';
                     submitBtn.style.background = 'var(--success-green)';
 
+                    // Store email in sessionStorage (not URL) to avoid PII exposure
+                    sessionStorage.setItem('tcm_email', email);
+
                     setTimeout(() => {
-                        window.location.href = '/pages/tcm-report-thanks.html?email=' + encodeURIComponent(email);
+                        window.location.href = '/pages/tcm-report-thanks.html';
                     }, 1500);
 
                 } catch (error) {

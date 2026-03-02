@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thank You! | BusinessGPS.ai</title>
     <meta name="robots" content="noindex">
+    <meta name="description" content="Your purchase was successful. Welcome to BusinessGPS — your transformation journey starts now.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://capability.ai/thank-you">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Thank You! | BusinessGPS.ai">
+    <meta property="og:description" content="Your purchase was successful. Welcome to BusinessGPS.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://capability.ai/thank-you">
+    <meta property="og:image" content="https://capability.ai/images/tcm-hero.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thank You! | BusinessGPS.ai">
+    <meta name="twitter:description" content="Your purchase was successful. Welcome to BusinessGPS.">
+    <meta name="twitter:image" content="https://capability.ai/images/tcm-hero.jpg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,13 +29,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css?v=20260211">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 
     <!-- Google Analytics 4 - Purchase Event -->
-    <!-- GA4_TRACKING_ID will be replaced with actual ID -->
+    <!-- TODO: Replace GA4_TRACKING_ID with real property ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -206,6 +223,7 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
@@ -214,9 +232,15 @@
                 <li><a href="../index.html#products">Products</a></li>
                 <li><a href="../index.html#framework">Framework</a></li>
             </ul>
+            <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Thank You Section -->
     <section class="thank-you-page">
         <div class="container">
@@ -225,7 +249,7 @@
                 <div class="loading-icon">
                     <div class="spinner"></div>
                 </div>
-                <h1>Processing Your Order...</h1>
+                <h2>Processing Your Order...</h2>
                 <p class="subtitle">Please wait while we confirm your purchase.</p>
             </div>
 
@@ -261,7 +285,7 @@
                 </div>
 
                 <div class="email-note">
-                    <strong>Check your inbox!</strong> We've sent a confirmation email with your receipt and access details to <span id="email-display">your email</span>.
+                    <strong>Check your inbox!</strong> Your welcome email with access link and Getting Started Workbook is on its way to <span id="email-display">your email</span>. It arrives within 2 minutes.
                 </div>
 
                 <div class="next-steps">
@@ -273,9 +297,20 @@
                     </ol>
                 </div>
 
+                <div style="background: var(--warm-white); border-radius: 12px; padding: 24px; margin-bottom: 32px; text-align: left;">
+                    <h3 style="font-size: 1rem; margin-bottom: 16px; color: var(--navy);">Your Client Area</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <a href="#workspace-placeholder" class="btn btn-secondary btn-full" style="text-align: center; padding: 16px;">Access Your Athena Workspace</a>
+                        <a href="#community-placeholder" class="btn btn-ghost btn-full" style="text-align: center; padding: 16px; border: 1px solid var(--soft-gray);">Join the Community</a>
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--cool-gray); margin-top: 12px; margin-bottom: 0;">
+                        Client area coming soon. Your access link has been sent to your email.
+                    </p>
+                </div>
+
                 <div class="cta-buttons">
-                    <a href="../index.html" class="btn btn-primary">Return to Homepage</a>
-                    <a href="#" class="btn btn-ghost" id="access-btn">Access Your Dashboard</a>
+                    <a href="athena-intro.html" class="btn btn-primary" id="getting-started-btn">Getting Started Guide</a>
+                    <a href="../index.html" class="btn btn-ghost" id="access-btn">Return to Homepage</a>
                 </div>
             </div>
 
@@ -289,7 +324,7 @@
                     </svg>
                 </div>
 
-                <h1>Something Went Wrong</h1>
+                <h2>Something Went Wrong</h2>
                 <p class="subtitle" id="error-message">We couldn't verify your order. Please contact support if you believe this is an error.</p>
 
                 <div class="cta-buttons">
@@ -300,40 +335,84 @@
         </div>
     </section>
 
-    <!-- Footer (simplified) -->
-    <footer style="background: var(--navy); padding: 24px 0; text-align: center;">
-        <p style="color: rgba(255,255,255,0.5); font-size: 0.875rem;">
-            &copy; 2026 BusinessGPS.ai. All rights reserved. |
-            <a href="#" style="color: rgba(255,255,255,0.5);">Privacy Policy</a> |
-            <a href="#" style="color: rgba(255,255,255,0.5);">Terms of Service</a>
-        </p>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+                    <p class="footer-desc">Transformation Capability Management</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="athena.html">Athena V3</a></li>
+                        <li><a href="start-right-30.html">Start Right-30</a></li>
+                        <li><a href="throughput-90.html">Throughput-90</a></li>
+                        <li><a href="opsmax-360.html">OpsMax-360</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="tcm-report.html">TCM Crisis Report</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" aria-label="LinkedIn (coming soon)">LinkedIn</a></li>
+                        <li><a href="#" aria-label="X (coming soon)">X</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BusinessGPS.ai (Techshifts Limited). All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
+        });
+
         // Product-specific next steps
         const productSteps = {
             'athena-standard': [
-                'Check your email for your Athena V3 access link',
-                'Complete your transformation assessment (15-20 minutes)',
-                'Review your personalised Success Map and recommendations'
+                '<strong>Check your email</strong> for your Athena V3 access link and Getting Started Workbook (arriving within 2 minutes)',
+                '<strong>Open Athena in ChatGPT</strong> using the link in your email — this is your private, personal space',
+                'Copy the <strong>first message template</strong> from your Workbook and paste it into Athena to begin your assessment',
+                'Complete your 9-Step Success Map (45-60 minutes) — you can pause and resume anytime'
             ],
             'athena-premium': [
-                'Check your email for your Athena V3 access link',
-                'Complete your transformation assessment',
-                'Book your 1:1 strategy session using the link in your email',
-                'Prepare for your session with your Success Map results'
+                '<strong>Check your email</strong> for your Athena V3 access link and Getting Started Workbook (arriving within 2 minutes)',
+                '<strong>Open Athena in ChatGPT</strong> and complete your 9-Step Success Map assessment',
+                '<strong>Book your 1:1 strategy session</strong> using the Calendly link in your email',
+                'Prepare for your session by reviewing your Success Map results and exporting them to Excel'
             ],
             'start-right-30': [
-                'Check your email for cohort onboarding details',
-                'Book your kick-off call with your facilitator',
-                'Join the private cohort community',
-                'Prepare for Day 1 with the pre-work materials'
+                '<strong>Check your email</strong> for your Start Right-30 welcome pack and onboarding kit',
+                '<strong>Complete your Athena assessment</strong> if you haven\'t already — your Success Map is required for Day 1',
+                '<strong>Export your Success Map</strong> to Excel and send it to your facilitator',
+                'Prepare for your <strong>Day 1 kick-off session</strong> using the prep guide in your welcome pack'
             ],
             'throughput-90': [
-                'Check your email for programme access details',
-                'Book your strategy alignment call',
-                'Complete Steps 4-6 assessment (Week 1-4)',
-                'Prepare for your GO/NO-GO checkpoint'
+                'Check your email for programme access details and your dedicated facilitator introduction',
+                'Book your strategy alignment call within the first week',
+                'Complete Steps 4-6 deep assessment (Weeks 1-4)',
+                'Prepare for your GO/NO-GO checkpoint at Week 6'
             ],
             'opsmax-360': [
                 'Your dedicated success manager will contact you within 24 hours',

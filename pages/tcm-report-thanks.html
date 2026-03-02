@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Report is On Its Way! | BusinessGPS.ai</title>
     <meta name="robots" content="noindex">
+    <meta name="description" content="Your TCM Report request has been received. Check your inbox for your personalised Transformation Capability Management report.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Your Report is On Its Way! | BusinessGPS.ai">
+    <meta property="og:description" content="Your TCM Report request has been received. Check your inbox for your personalised report.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://capability.ai/pages/tcm-report-thanks.html">
+    <meta property="og:image" content="https://capability.ai/images/tcm-hero.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Your Report is On Its Way! | BusinessGPS.ai">
+    <meta name="twitter:description" content="Your TCM Report request has been received. Check your inbox for your personalised report.">
+    <meta name="twitter:image" content="https://capability.ai/images/tcm-hero.jpg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css?v=20260211">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
@@ -143,8 +157,19 @@
             }
         }
     </style>
+
+    <!-- Google Analytics 4 -->
+    <!-- TODO: Replace GA4_TRACKING_ID with real property ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA4_TRACKING_ID');
+    </script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
@@ -153,9 +178,15 @@
                 <li><a href="../index.html#products">Products</a></li>
                 <li><a href="../index.html#framework">Framework</a></li>
             </ul>
+            <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Thanks Section -->
     <section class="thanks-page">
         <div class="container">
@@ -177,9 +208,11 @@
                 <div class="next-steps">
                     <h3>What to Expect</h3>
                     <ol>
-                        <li><strong>Within 2 minutes:</strong> You'll receive an email with the PDF attached</li>
-                        <li><strong>15 minutes to read:</strong> The report unpacks the capability gap consultancies don't want you to see</li>
-                        <li><strong>Next steps included:</strong> Clear guidance on where to go from here</li>
+                        <li><strong>Within 2 minutes:</strong> You'll receive an email with the PDF download link</li>
+                        <li><strong>30 minutes to read:</strong> The report unpacks the capability gap consultancies don't want you to see</li>
+                        <li><strong>You'll meet Sarah:</strong> A CFO who did everything right — and ended up more dependent than when she started</li>
+                        <li><strong>Three numbers:</strong> $3.9 trillion, 72%, and 6% — the maths of transformation failure</li>
+                        <li><strong>The fix:</strong> A completely different approach that puts transformation intelligence on YOUR side</li>
                     </ol>
                 </div>
 
@@ -193,28 +226,70 @@
 
                 <p class="spam-note">
                     Didn't get the email? Check your spam folder. Still nothing?
-                    <a href="mailto:support@businessgps.ai" style="color: var(--teal);">Contact us</a> and we'll sort it out.
+                    <a href="mailto:support@businessgps.ai" class="text-teal">Contact us</a> and we'll sort it out.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Footer (simplified) -->
-    <footer style="background: var(--navy); padding: 24px 0; text-align: center;">
-        <p style="color: rgba(255,255,255,0.5); font-size: 0.875rem;">
-            &copy; 2026 BusinessGPS.ai. All rights reserved. |
-            <a href="#" style="color: rgba(255,255,255,0.5);">Privacy Policy</a> |
-            <a href="#" style="color: rgba(255,255,255,0.5);">Terms of Service</a>
-        </p>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+                    <p class="footer-desc">Transformation Capability Management</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="athena.html">Athena V3</a></li>
+                        <li><a href="start-right-30.html">Start Right-30</a></li>
+                        <li><a href="throughput-90.html">Throughput-90</a></li>
+                        <li><a href="opsmax-360.html">OpsMax-360</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="tcm-report.html">TCM Crisis Report</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" aria-label="LinkedIn (coming soon)">LinkedIn</a></li>
+                        <li><a href="#" aria-label="X (coming soon)">X</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BusinessGPS.ai (Techshifts Limited). All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Get email from URL if available
-        const urlParams = new URLSearchParams(window.location.search);
-        const email = urlParams.get('email');
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
+        });
 
+        // Read email from sessionStorage (not URL) to avoid PII exposure
+        var email = sessionStorage.getItem('tcm_email');
         if (email) {
             document.getElementById('email-display').textContent = email;
+            sessionStorage.removeItem('tcm_email');
         }
     </script>
 </body>

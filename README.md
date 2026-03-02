@@ -28,7 +28,7 @@ A Netlify-hosted e-commerce platform for BusinessGPS.ai's Transformation Capabil
 |---------|-------|------|
 | Athena Standard | £67 | Self-service |
 | Athena Premium | £297 | Self-service + session |
-| Start Right 30 | £1,997 | Cohort programme |
+| Start Right-30 | £1,997 | Cohort programme |
 | Throughput-90 | £5,997 | Guided programme |
 | OpsMax-360 | £15,000 | Enterprise transformation |
 
@@ -39,7 +39,7 @@ businessgps-netlify/
 ├── index.html                    # Homepage
 ├── pages/
 │   ├── athena.html              # Athena product page
-│   ├── start-right-30.html      # Start Right 30 product page
+│   ├── start-right-30.html      # Start Right-30 product page
 │   ├── throughput-90.html       # Throughput-90 product page
 │   ├── opsmax-360.html          # OpsMax-360 product page
 │   ├── tcm-report.html          # Lead magnet page (→ AWeber + HubSpot)
@@ -103,7 +103,7 @@ Based on BusinessGPS Brand Guidelines v1.0:
 2. Create 5 products with the following prices:
    - Athena Standard: £67 one-time
    - Athena Premium: £297 one-time
-   - Start Right 30: £1,997 one-time
+   - Start Right-30: £1,997 one-time
    - Throughput-90: £5,997 one-time
    - OpsMax-360: £15,000 one-time
 3. Copy each price ID (starts with `price_`)

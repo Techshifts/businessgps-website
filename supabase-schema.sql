@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS orders (
     first_name TEXT,
     last_name TEXT,
     product_id TEXT NOT NULL,
-    amount_gbp INTEGER,  -- Amount in pence
+    amount_gbp INTEGER,  -- Amount in pounds (GBP), converted from Stripe pence
     status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'refunded', 'failed')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS product_access (
     order_id UUID REFERENCES orders(id) ON DELETE SET NULL,
     granted_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     expires_at TIMESTAMP WITH TIME ZONE,  -- NULL = never expires
-    cohort_id TEXT,  -- For Start Right 30 cohort assignment
+    cohort_id TEXT,  -- For Start Right-30 cohort assignment
     status TEXT DEFAULT 'active' CHECK (status IN ('active', 'expired', 'revoked')),
     UNIQUE(email, product_id)
 );
@@ -47,7 +47,7 @@ CREATE INDEX IF NOT EXISTS idx_product_access_product ON product_access(product_
 -- =====================
 -- COHORTS TABLE
 -- =====================
--- For managing Start Right 30 cohort enrollments
+-- For managing Start Right-30 cohort enrollments
 CREATE TABLE IF NOT EXISTS cohorts (
     id TEXT PRIMARY KEY,  -- e.g., "SR30-2026-Q1"
     name TEXT NOT NULL,
@@ -160,4 +160,4 @@ ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
 -- Uncomment to create a test cohort
 
 -- INSERT INTO cohorts (id, name, start_date, max_participants, status)
--- VALUES ('SR30-2026-Q1', 'Start Right 30 - Q1 2026', '2026-03-01', 20, 'upcoming');
+-- VALUES ('SR30-2026-Q1', 'Start Right-30 - Q1 2026', '2026-03-01', 20, 'upcoming');

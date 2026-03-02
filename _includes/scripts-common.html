@@ -1,0 +1,7 @@
+    <script>
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
+        });
+    </script>

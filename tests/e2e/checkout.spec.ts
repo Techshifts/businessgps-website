@@ -16,7 +16,7 @@ import { test, expect } from '@playwright/test';
 const products = {
   'athena-standard': { name: 'Athena V3 - Standard', price: '£67' },
   'athena-premium': { name: 'Athena V3 - Premium', price: '£297' },
-  'start-right-30': { name: 'Start Right 30', price: '£1,997' },
+  'start-right-30': { name: 'Start Right-30', price: '£1,997' },
   'throughput-90': { name: 'Throughput-90', price: '£5,997' },
   'opsmax-360': { name: 'OpsMax-360', price: '£15,000' },
 };

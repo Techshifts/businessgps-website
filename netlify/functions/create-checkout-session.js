@@ -25,7 +25,7 @@ const PRODUCT_INFO = {
     description: 'Full assessment + 1:1 strategy session',
   },
   'start-right-30': {
-    name: 'Start Right 30',
+    name: 'Start Right-30',
     description: '30-day leadership cohort programme (Steps 1-3)',
   },
   'throughput-90': {

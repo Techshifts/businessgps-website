@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/styles.css?v=20260217">
+    <link rel="stylesheet" href="../css/styles.css?v=20260218">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
@@ -49,7 +49,14 @@
                             <label for="login-email" class="form-label">Email address</label>
                             <input type="email" id="login-email" name="email" class="form-input" placeholder="you@company.com" required>
                         </div>
+                        <div class="form-group" id="password-group" style="display: none;">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" id="login-password" name="password" class="form-input" placeholder="Enter your password">
+                        </div>
                         <button type="submit" class="btn btn-primary btn-full btn-lg" id="login-btn">Send Magic Link</button>
+                        <p class="portal-login-toggle">
+                            <a href="#" id="toggle-password">Sign in with password instead</a>
+                        </p>
                     </form>
 
                     <div id="login-success" class="portal-login-success hidden">
@@ -161,41 +168,95 @@
             font-size: var(--font-size-sm);
             color: var(--cool-gray);
         }
+
+        .portal-login-toggle {
+            text-align: center;
+            margin-top: var(--spacing-md);
+            font-size: var(--font-size-sm);
+        }
+
+        .portal-login-toggle a {
+            color: var(--teal);
+        }
     </style>
 
-    <script src="../js/supabase.min.js"></script>
-    <script src="../js/portal-auth.js"></script>
+    <script src="../js/supabase.min.js?v=20260218"></script>
+    <script src="../js/portal-auth.js?v=20260218"></script>
     <script>
+        var isPasswordMode = false;
+        var toggleLink = document.getElementById('toggle-password');
+        var passwordGroup = document.getElementById('password-group');
+        var loginBtn = document.getElementById('login-btn');
+
+        toggleLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            isPasswordMode = !isPasswordMode;
+            if (isPasswordMode) {
+                passwordGroup.style.display = '';
+                loginBtn.textContent = 'Sign In';
+                toggleLink.textContent = 'Use magic link instead';
+            } else {
+                passwordGroup.style.display = 'none';
+                loginBtn.textContent = 'Send Magic Link';
+                toggleLink.textContent = 'Sign in with password instead';
+                document.getElementById('login-password').value = '';
+            }
+        });
+
         document.getElementById('login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             var btn = document.getElementById('login-btn');
-            var emailInput = document.getElementById('login-email');
-            var email = emailInput.value.trim();
+            var email = document.getElementById('login-email').value.trim();
+            var password = document.getElementById('login-password').value;
 
             if (!email) return;
 
-            btn.textContent = 'Sending...';
+            var originalText = btn.textContent;
+            btn.textContent = isPasswordMode ? 'Signing in...' : 'Sending...';
             btn.disabled = true;
 
+            // Hide any previous error
+            document.getElementById('login-error').classList.add('hidden');
+
             try {
-                var result = await window.portalAuth.signInWithOtp(email);
+                if (isPasswordMode) {
+                    // Password sign-in
+                    var result = await window.portalAuth.supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
 
-                if (result.error) {
-                    document.getElementById('login-error-text').textContent = result.error.message;
-                    document.getElementById('login-error').classList.remove('hidden');
-                    btn.textContent = 'Send Magic Link';
-                    btn.disabled = false;
-                    return;
+                    if (result.error) {
+                        document.getElementById('login-error-text').textContent = result.error.message;
+                        document.getElementById('login-error').classList.remove('hidden');
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        return;
+                    }
+
+                    // Success — redirect to dashboard
+                    window.location.href = '/portal/dashboard.html';
+                } else {
+                    // Magic link sign-in
+                    var result = await window.portalAuth.signInWithOtp(email);
+
+                    if (result.error) {
+                        document.getElementById('login-error-text').textContent = result.error.message;
+                        document.getElementById('login-error').classList.remove('hidden');
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        return;
+                    }
+
+                    document.getElementById('login-form').classList.add('hidden');
+                    document.getElementById('login-email-display').textContent = email;
+                    document.getElementById('login-success').classList.remove('hidden');
                 }
-
-                document.getElementById('login-form').classList.add('hidden');
-                document.getElementById('login-email-display').textContent = email;
-                document.getElementById('login-success').classList.remove('hidden');
             } catch (err) {
                 document.getElementById('login-error-text').textContent = 'Something went wrong. Please try again.';
                 document.getElementById('login-error').classList.remove('hidden');
-                btn.textContent = 'Send Magic Link';
+                btn.textContent = originalText;
                 btn.disabled = false;
             }
         });

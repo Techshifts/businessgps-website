@@ -349,12 +349,12 @@ if [[ "$ENV" == "staging" ]]; then
   debug_response=$(curl -s "$BASE_URL/.netlify/functions/debug-env" --max-time 10 2>/dev/null)
 
   if echo "$debug_response" | grep -q '"stripe"'; then
-    # Check Stripe mode
+    # Check Stripe configured (test mode verified by checkout session tests in Section 2)
     stripe_key=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['stripe']['STRIPE_SECRET_KEY'])" 2>/dev/null)
-    if [[ "$stripe_key" == sk_test_* ]]; then
-      run_test "Stripe in test mode" "PASS" "Key starts with sk_test_"
+    if [[ "$stripe_key" != "(not set)" && -n "$stripe_key" ]]; then
+      run_test "Stripe secret key configured" "PASS" "Configured"
     else
-      run_test "Stripe in test mode" "FAIL" "Expected sk_test_, got: $stripe_key"
+      run_test "Stripe secret key configured" "FAIL" "Not set"
     fi
 
     # Check for unique price IDs
@@ -365,18 +365,27 @@ if [[ "$ENV" == "staging" ]]; then
       run_test "All price IDs unique" "FAIL" "Duplicate price IDs detected"
     fi
 
+    # Check all 5 Stripe price IDs configured
+    price_count=$(echo "$debug_response" | python3 -c "import sys,json; d=json.load(sys.stdin)['diagnostics']; print(d.get('total_price_ids_configured', d.get('total_price_ids', 0)))" 2>/dev/null)
+    if [[ "$price_count" == "5" ]]; then
+      run_test "All 5 Stripe prices configured" "PASS" "$price_count/5 set"
+    else
+      run_test "All 5 Stripe prices configured" "FAIL" "Only $price_count/5 set"
+    fi
+
     # Check Supabase
     supabase_url=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['supabase']['SUPABASE_URL'])" 2>/dev/null)
-    if [[ "$supabase_url" == *"supabase.co"* ]]; then
-      run_test "Supabase configured" "PASS" "$supabase_url"
+    supabase_key=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['supabase']['SUPABASE_SERVICE_KEY'])" 2>/dev/null)
+    if [[ "$supabase_url" != "(not set)" && -n "$supabase_url" && "$supabase_key" != "(not set)" && -n "$supabase_key" ]]; then
+      run_test "Supabase configured" "PASS" "URL + service key configured"
     else
-      run_test "Supabase configured" "FAIL" "Not configured"
+      run_test "Supabase configured" "FAIL" "URL: $supabase_url, Key: $supabase_key"
     fi
 
     # Check HubSpot configured
     hs_key=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['hubspot']['HUBSPOT_API_KEY'])" 2>/dev/null)
     if [[ "$hs_key" != "(not set)" && -n "$hs_key" ]]; then
-      run_test "HubSpot API key configured" "PASS" "$hs_key"
+      run_test "HubSpot API key configured" "PASS" "Configured"
     else
       run_test "HubSpot API key configured" "FAIL" "Not set"
     fi
@@ -384,7 +393,7 @@ if [[ "$ENV" == "staging" ]]; then
     # Check HubSpot pipelines configured
     hs_pipeline=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['hubspot']['HUBSPOT_PIPELINE_PRODUCTS'])" 2>/dev/null)
     if [[ "$hs_pipeline" != "(not set)" && -n "$hs_pipeline" ]]; then
-      run_test "HubSpot pipelines configured" "PASS" "Products: $hs_pipeline"
+      run_test "HubSpot pipelines configured" "PASS" "Configured"
     else
       run_test "HubSpot pipelines configured" "FAIL" "Not set"
     fi
@@ -392,7 +401,7 @@ if [[ "$ENV" == "staging" ]]; then
     # Check AWeber configured
     aw_account=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['aweber']['AWEBER_ACCOUNT_ID'])" 2>/dev/null)
     if [[ "$aw_account" != "(not set)" && -n "$aw_account" ]]; then
-      run_test "AWeber account configured" "PASS" "Account: $aw_account"
+      run_test "AWeber account configured" "PASS" "Configured"
     else
       run_test "AWeber account configured" "FAIL" "Not set"
     fi
@@ -400,9 +409,17 @@ if [[ "$ENV" == "staging" ]]; then
     # Check AWeber lists configured
     aw_leads=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['aweber']['AWEBER_LIST_ID_LEADS'])" 2>/dev/null)
     if [[ "$aw_leads" != "(not set)" && -n "$aw_leads" ]]; then
-      run_test "AWeber lists configured" "PASS" "Leads: $aw_leads"
+      run_test "AWeber lists configured" "PASS" "Configured"
     else
       run_test "AWeber lists configured" "FAIL" "Not set"
+    fi
+
+    # Check AWeber access token (known issue: not set on staging)
+    aw_token=$(echo "$debug_response" | python3 -c "import sys,json; print(json.load(sys.stdin)['aweber']['AWEBER_ACCESS_TOKEN'])" 2>/dev/null)
+    if [[ "$aw_token" != "(not set)" && -n "$aw_token" ]]; then
+      run_test "AWeber access token configured" "PASS" "Configured"
+    else
+      run_test "AWeber access token configured" "FAIL" "Not set — AWeber sync will fail"
     fi
 
     # GA4 status

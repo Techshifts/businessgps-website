@@ -10,8 +10,17 @@
     <meta property="og:title" content="Last Tuesday, Your Consultants Used AI. Now It's Your Turn.">
     <meta property="og:description" content="Athena V3 builds YOUR transformation capability, not theirs. From £67.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://businessgps.ai/athena-v3/">
+    <meta property="og:url" content="https://capability.ai/athena">
     <meta property="og:image" content="/images/athena60minutes.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://capability.ai/athena">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Last Tuesday, Your Consultants Used AI. Now It's Your Turn.">
+    <meta name="twitter:description" content="Athena V3 builds YOUR transformation capability, not theirs. From £67.">
+    <meta name="twitter:image" content="https://capability.ai/images/tcm-hero.jpg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,19 +28,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/styles.css?v=20260211">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>">
 
     <!-- Google Analytics 4 -->
-    <!-- GA4_TRACKING_ID will be replaced with actual ID -->
+    <!-- TODO: Replace GA4_TRACKING_ID with real property ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA4_TRACKING_ID"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'GA4_TRACKING_ID');
+    </script>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Athena V3 - AI Strategy Co-Pilot",
+        "description": "AI-guided Strategy Assessment covering the first 9 steps of the 45-step O2O Framework. Build your own transformation capability.",
+        "brand": {
+            "@type": "Organization",
+            "name": "BusinessGPS.ai"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "67",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock",
+            "url": "https://capability.ai/athena"
+        }
+    }
     </script>
 
     <style>
@@ -166,6 +196,7 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
@@ -175,7 +206,7 @@
                 <li><a href="tcm-report.html">Free Report</a></li>
                 <li><a href="#pricing" class="btn btn-primary btn-sm">Get Athena V3</a></li>
             </ul>
-            <button class="navbar-toggle" aria-label="Toggle navigation">
+            <button class="navbar-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -183,12 +214,13 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Hero Section - Carlton Concrete Immediacy -->
     <section class="hero bg-warm-white">
         <div class="container">
             <div class="two-col-60-40">
                 <div class="hero-content">
-                    <p style="font-style: italic; color: var(--cool-gray); margin-bottom: 12px;">
+                    <p class="text-audience">
                         *For transformation leaders who see the game*
                     </p>
 
@@ -196,15 +228,15 @@
                     <h1 style="font-size: 2.5rem; line-height: 1.15; margin-bottom: 1.5rem;">
                         Last Tuesday, Your Consultants Used AI That Made Them 50% Faster.<br>
                         They Billed You For It.<br>
-                        <span style="color: var(--teal);">Then They Took It To Your Competitor.</span>
+                        <span class="text-teal">Then They Took It To Your Competitor.</span>
                     </h1>
 
                     <!-- CARLTON FOLLOW-THROUGH -->
-                    <p style="font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem;">
+                    <p class="text-emphasis" style="margin-bottom: 1rem;">
                         That's not a hypothetical. That's how Tuesday went.
                     </p>
 
-                    <p style="font-size: 1.125rem; line-height: 1.7; color: var(--cool-gray); margin-bottom: 2rem;">
+                    <p class="text-body-lg" style="color: var(--cool-gray); margin-bottom: 2rem;">
                         Athena V3 is your AI co-pilot for transformation strategy. It guides you through the first 9 steps of the 45-step O2O Framework—the same methodology that's guided £500M+ in transformations—building YOUR capability, not theirs.
                     </p>
 
@@ -220,7 +252,7 @@
                 </div>
 
                 <div>
-                    <img src="../images/athena60minutes.jpg" alt="Athena V3 Strategy Assessment" style="border-radius: 12px; box-shadow: var(--shadow-xl);">
+                    <img src="../images/athena60minutes.jpg" alt="Athena V3 Strategy Assessment" width="1728" height="608" class="img-rounded-xl">
                 </div>
             </div>
         </div>
@@ -232,19 +264,19 @@
             <h2 class="text-center mb-xl">The Game You've Been Playing Without Knowing The Rules</h2>
 
             <!-- CARLTON CONCRETE -->
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 IBM now has 150,000 AI-augmented consultants. One of them might have been in your office last week, using AI to analyse your business in four hours instead of four weeks.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 Your data. Your problems. Your budget.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 And when they packed up Friday evening? That AI capability got on a plane with them. It's being deployed somewhere else right now.
             </p>
 
-            <p style="font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 2rem;">
+            <p class="text-emphasis mb-2xl">
                 Maybe on a company in your sector. Maybe on a direct competitor.
             </p>
 
@@ -253,21 +285,21 @@
                 The trap doesn't feel like a trap. It feels like professionalism.
             </div>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 Engaging prestigious consultancies looks responsible to the board.<br>
                 Signing multi-year agreements looks like "strategic partnership."<br>
                 Renewing with the same firm looks like continuity.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1.5rem;">
+            <p class="text-body-lg mb-lg">
                 Each decision makes sense. Each milestone feels like progress.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; font-weight: 600;">
+            <p class="text-body-lg font-semibold">
                 But zoom out—really zoom out—and you see the pattern:
             </p>
 
-            <p style="font-size: 1.25rem; line-height: 1.8; color: var(--navy); font-weight: 600; margin: 1.5rem 0;">
+            <p class="text-emphasis" style="line-height: 1.8; margin: 1.5rem 0;">
                 Year by year, engagement by engagement, your organisation becomes less capable of transformation and more dependent on those who sell it.
             </p>
 
@@ -299,7 +331,7 @@
                 </tbody>
             </table>
 
-            <p class="text-center" style="font-size: 1.25rem; font-weight: 600; color: var(--navy);">
+            <p class="text-center text-emphasis">
                 This is the asymmetry. And it's getting wider every quarter.
             </p>
         </div>
@@ -310,24 +342,24 @@
         <div class="container container-narrow text-center">
             <h2 class="text-white">There's Another Way</h2>
 
-            <p class="text-white" style="font-size: 1.125rem; line-height: 1.8; opacity: 0.85; margin-bottom: 1.5rem;">
+            <p class="text-white text-muted-light text-body-lg mb-lg">
                 For 20 years, consultancies have owned the methodology layer. Now they're doing the same with AI.
             </p>
 
-            <p class="text-white" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">
+            <p class="text-white text-body-xl font-semibold mb-lg">
                 TCM—Transformation Capability Management—flips the model.
             </p>
 
-            <p class="text-white" style="font-size: 1.125rem; line-height: 1.8; opacity: 0.85; margin-bottom: 2rem;">
+            <p class="text-white text-muted-light text-body-lg mb-2xl">
                 Instead of augmenting consultants, we augment you.
             </p>
 
-            <p class="text-white" style="font-size: 1.125rem; line-height: 1.8; opacity: 0.85;">
+            <p class="text-white text-muted-light text-body-lg">
                 Athena V3 is your AI-guided entry point into the O2O Framework—the 45-step methodology that's guided over £500M in successful transformations. It builds the capability on YOUR side.
             </p>
 
             <div class="quote-block quote-block-center" style="margin: 2.5rem auto; max-width: 500px; background: transparent; border-color: var(--teal);">
-                <span style="color: var(--teal);">
+                <span class="text-teal">
                     "Consultancies augment themselves.<br>
                     <strong>TCM augments you.</strong>"
                 </span>
@@ -346,7 +378,7 @@
             <!-- Framework Visual -->
             <div class="framework-visual">
                 <div class="text-center mb-lg">
-                    <img src="../images/o2oframework.jpg" alt="O2O Framework - 45 Steps" style="max-width: 600px; width: 100%; border-radius: 8px; display: block; margin: 0 auto;">
+                    <img src="../images/o2oframework.jpg" alt="O2O Framework - 45 Steps" width="1024" height="1024" loading="lazy" style="max-width: 600px; width: 100%; border-radius: var(--border-radius); display: block; margin: 0 auto;">
                 </div>
 
                 <div class="framework-parts">
@@ -371,7 +403,7 @@
             </div>
 
             <!-- The 9 Strategy Steps -->
-            <h3 class="text-center mb-lg" style="margin-top: 3rem;">Part 1: Strategy — The 9 Steps Athena Guides You Through</h3>
+            <h3 class="text-center mb-lg mt-2xl">Part 1: Strategy — The 9 Steps Athena Guides You Through</h3>
 
             <div class="grid grid-3 mb-2xl">
                 <div class="step-card">
@@ -427,7 +459,7 @@
                 <div class="grid grid-2">
                     <ul class="checklist">
                         <li>All 9 Strategy steps with AI guidance</li>
-                        <li>30-day AI-guided advisory conversations</li>
+                        <li>30-day support window for questions</li>
                         <li>Complete transformation readiness report</li>
                     </ul>
                     <ul class="checklist">
@@ -486,7 +518,7 @@
 
                     <ul class="pricing-card-features">
                         <li>All 9 Strategy steps (Part 1 of O2O)</li>
-                        <li>30-day AI advisory access</li>
+                        <li>30-day support window for questions</li>
                         <li>Full transformation readiness report</li>
                         <li>Go/No-Go/Pivot recommendations</li>
                         <li>Board-ready exports</li>
@@ -512,21 +544,21 @@
                         <li>Step 1: Business Context</li>
                         <li>Step 2: Business Goals</li>
                         <li>Step 3: Business Change</li>
-                        <li>7-day AI advisory access</li>
+                        <li>7-day support window for questions</li>
                         <li>Foundation readiness report</li>
                     </ul>
 
                     <a href="checkout.html?product=athena-standard" class="btn btn-secondary btn-lg btn-full">Start with Foundations - £67</a>
 
-                    <p class="pricing-card-guarantee">Upgrade to Personal anytime<br>(£230 credit applied)</p>
+                    <p class="pricing-card-guarantee">Upgrade to Personal anytime<br>(£230 upgrade charge applies)</p>
                 </div>
             </div>
 
             <!-- Team Packages -->
             <div class="text-center mt-2xl">
                 <h3>Need to Equip Your Team?</h3>
-                <p style="color: var(--cool-gray);">Volume pricing available for teams of 5, 10, or 20.</p>
-                <a href="#" class="btn btn-ghost">Talk to Us About Team Packages →</a>
+                <p>Volume pricing available for teams of 5, 10, or 20.</p>
+                <a href="team-packages.html" class="btn btn-ghost">Talk to Us About Team Packages →</a>
             </div>
         </div>
     </section>
@@ -536,11 +568,11 @@
         <div class="container container-narrow text-center">
             <h2 class="text-white">The Clarity Guarantee</h2>
 
-            <p class="text-white" style="font-size: 1.125rem; line-height: 1.8; opacity: 0.85; margin-bottom: 1rem;">
+            <p class="text-white text-muted-light text-body-lg mb-md">
                 If Athena V3 doesn't give you clearer insight into your transformation capability within 30 days, email us and we'll refund every penny. No questions. No hoops.
             </p>
 
-            <p class="text-white" style="font-size: 1.125rem; line-height: 1.8; font-weight: 600;">
+            <p class="text-white text-body-lg font-semibold">
                 We're not in the business of trapping you. That's the consultancy model we're trying to break.
             </p>
 
@@ -559,25 +591,25 @@
         <div class="container container-text text-center">
             <h2>You See It Now. Act While You Still Do.</h2>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--cool-gray); margin-bottom: 1.5rem;">
+            <p class="text-body-lg text-gray mb-lg">
                 Clarity fades. Urgency dims. The pattern you just saw so clearly? In a week, it'll look like "just how things work." The trap will start looking like shelter again.
             </p>
 
-            <p style="font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: 1.5rem;">
+            <p class="text-emphasis mb-lg">
                 This is the cage with the door still open.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; color: var(--cool-gray); margin-bottom: 1.5rem;">
+            <p class="text-body-lg text-gray mb-lg">
                 Right now, you can see the asymmetry. You understand the game. You know what capability ownership actually means.
             </p>
 
-            <p style="font-size: 1.125rem; line-height: 1.8; font-weight: 600; color: var(--navy); margin-bottom: 2rem;">
+            <p class="text-body-lg font-semibold text-navy mb-2xl">
                 That clarity won't last. It never does.
             </p>
 
-            <p style="font-size: 1.25rem; color: var(--cool-gray); margin-bottom: 2rem;">
+            <p class="text-body-xl text-gray mb-2xl">
                 The question isn't whether you'll act.<br>
-                <strong style="color: var(--navy);">It's whether you'll act while you can still see why you should.</strong>
+                <strong class="text-navy">It's whether you'll act while you can still see why you should.</strong>
             </p>
 
             <a href="#pricing" class="btn btn-primary btn-lg">Start Strategy Assessment - £297</a>
@@ -587,47 +619,47 @@
         </div>
     </section>
 
+    </main>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="../index.html" class="navbar-logo" style="color: white;">Business<span style="color: var(--teal);">GPS</span>.ai</a>
-                    <p>The Salesforce of Sovereignty</p>
-                    <p>Building permanent transformation capability on your side.</p>
+                <div class="footer-col">
+                    <a href="../index.html" class="navbar-logo">Business<span>GPS</span>.ai</a>
+                    <p class="footer-desc">Transformation Capability Management</p>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Products</h4>
+                <div class="footer-col">
+                    <h4>Products</h4>
                     <ul class="footer-links">
                         <li><a href="athena.html">Athena V3</a></li>
-                        <li><a href="start-right-30.html">Start Right 30</a></li>
-                        <li><a href="throughput-90.html">Throughput 90</a></li>
-                        <li><a href="opsmax-360.html">OpsMax 360</a></li>
+                        <li><a href="start-right-30.html">Start Right-30</a></li>
+                        <li><a href="throughput-90.html">Throughput-90</a></li>
+                        <li><a href="opsmax-360.html">OpsMax-360</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Resources</h4>
+                <div class="footer-col">
+                    <h4>Resources</h4>
                     <ul class="footer-links">
-                        <li><a href="tcm-report.html">TCM Report (Free)</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="tcm-report.html">TCM Crisis Report</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="footer-heading">Legal</h4>
+                <div class="footer-col">
+                    <h4>Connect</h4>
                     <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#" aria-label="LinkedIn (coming soon)">LinkedIn</a></li>
+                        <li><a href="#" aria-label="X (coming soon)">X</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 BusinessGPS.ai. All rights reserved.</p>
-                <div class="flex gap-md">
-                    <a href="#" style="color: rgba(255,255,255,0.5);">LinkedIn</a>
-                    <a href="#" style="color: rgba(255,255,255,0.5);">Twitter</a>
+                <p>&copy; 2026 BusinessGPS.ai (Techshifts Limited). All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="cookies.html">Cookie Policy</a>
                 </div>
             </div>
         </div>
@@ -636,7 +668,9 @@
     <!-- Mobile Nav Script -->
     <script>
         document.querySelector('.navbar-toggle').addEventListener('click', function() {
-            document.querySelector('.navbar-nav').classList.toggle('active');
+            var nav = document.querySelector('.navbar-nav');
+            nav.classList.toggle('active');
+            this.setAttribute('aria-expanded', nav.classList.contains('active'));
         });
     </script>
 </body>
